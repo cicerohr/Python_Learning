@@ -1,0 +1,2 @@
+loguru~=0.6.0
+setuptools~=62.1.0
