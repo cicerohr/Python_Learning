@@ -8,13 +8,15 @@ def read(file_name):
 
 
 setup(
-    name='Template',
+    name='Python Learning',
     version='',
     packages=[''],
     url='',
     license='MIT License',
-    author='',
+    author='CHR',
     author_email='your_email@domain.com',
-    description='Project template',
+    description='The objective of this project is to create programs for '
+                'learning the Python programming language, as well as the use '
+                'of libraries to improve the performance of algorithms.',
     long_description=read('README.md'),
 )
