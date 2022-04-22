@@ -7,6 +7,8 @@ Fonte:
 https://www.youtube.com/watch?v=dFd6us_xFSc&list=PLvS2JoIlSA4AiEnL_tWkFFWpWfiGqzX83&index=2
 """
 
+from logs.loguru_conf import logger
+
 
 def selection_sort(lista: list) -> list:
     """-> Selection Sort Algorithm.
@@ -45,6 +47,7 @@ def selection_sort(lista: list) -> list:
             if lista[j] < lista[menor]:
                 menor = j
         lista[i], lista[menor] = lista[menor], lista[i]
+        logger.debug(f'{i}: {lista}')
     return lista
 
 
