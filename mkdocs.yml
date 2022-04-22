@@ -2,7 +2,7 @@ site_name: Python Learning
 
 theme:
   name: material
-  language: pt-BR
+  language: en
   features:
     - header.autohide
   palette:

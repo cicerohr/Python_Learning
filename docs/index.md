@@ -4,6 +4,15 @@ The objective of this project is to create programs for learning the Python
 programming language, as well as the use of libraries to improve the
 performance of algorithms.
 
+## Contents
+
+* Sorted List Search
+    * [Linear search algorithm.](#linear-search-algorithm)
+    * [Binary search algorithm.](#binary-search-algorithm)
+    * [Interpolation search algorithm.](#interpolation-search-algorithm)
+* Selection Sort
+    * [Selection sort algorithm.](#selection-sort-algorithm)
+
 ## [Sorted List Search](../src/sorted_list_search.py)
 
 ### Linear search algorithm.
@@ -94,3 +103,20 @@ Code:
             high = index - 1
     return -1
 
+## [Selection Sort](../src/selection_sort.py)
+
+### Selection sort algorithm.
+
+The selection sort algorithm has O(n²) time complexity, due to which it becomes
+less effective on large lists, usually performs worse than the similar
+insertion sort.
+
+Code:
+
+    for i, _ in enumerate(the_list):
+        minimum = i
+        for j in range(i + 1, len(the_list)):
+            if the_list[j] < the_list[minimum]:
+                minimum = j
+        the_list[i], the_list[minimum] = the_list[minimum], the_list[i]
+    return the_list

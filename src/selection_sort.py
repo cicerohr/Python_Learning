@@ -3,21 +3,21 @@
 
 Sort Selection Algorithm (Ordenação por Seleção).
 
-Fonte:
+Source:
 https://www.youtube.com/watch?v=dFd6us_xFSc&list=PLvS2JoIlSA4AiEnL_tWkFFWpWfiGqzX83&index=2
 """
 
 from logs.loguru_conf import logger
 
 
-def selection_sort(lista: list) -> list:
+def selection_sort(the_list: list) -> list:
     """-> Selection Sort Algorithm.
 
     Complexity of algorithm: O(n²)
     Comparisons: (n -1) + (n - 2) + ... + 1 = (n² - n)/2
     Swap: n - 1
 
-    :param lista: list of elements to be sorted
+    :param the_list: list of elements to be sorted
     :return: list sorted
     :rtype: list
 
@@ -41,14 +41,14 @@ def selection_sort(lista: list) -> list:
     >>> selection_sort([])
     []
     """
-    for i, _ in enumerate(lista):
-        menor = i
-        for j in range(i + 1, len(lista)):
-            if lista[j] < lista[menor]:
-                menor = j
-        lista[i], lista[menor] = lista[menor], lista[i]
-        logger.debug(f'{i}: {lista}')
-    return lista
+    for i, _ in enumerate(the_list):
+        minimum = i
+        for j in range(i + 1, len(the_list)):
+            if the_list[j] < the_list[minimum]:
+                minimum = j
+        the_list[i], the_list[minimum] = the_list[minimum], the_list[i]
+        logger.debug(f'{i}: {the_list}')
+    return the_list
 
 
 def main():
