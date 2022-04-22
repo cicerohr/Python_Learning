@@ -22,7 +22,7 @@ class GuessNumber:
     """Class GuessNumber."""
 
     def __init__(self):
-        """-> Constructor
+        """-> Constructor.
 
         Initialize the game.
         """
@@ -30,14 +30,30 @@ class GuessNumber:
         self.secret_number = randint(self.range[0], self.range[1])
         self.attempts = 0
 
-    def start(self):
+    def __str__(self) -> str:
+        """-> String representation of the object.
+
+        :return: String representation of the object
+        :rtype: str
+        """
+        return f'O número secreto é {self.secret_number}'
+
+    def __repr__(self) -> str:
+        """-> String representation of the object.
+
+        :return: String representation of the object
+        :rtype: str
+        """
+        return f'O número secreto é {self.secret_number}'
+
+    def start(self) -> None:
         """-> Start the game.
 
         :return: None
         """
         print(
             '\n',
-            'Bem-vindo ao jogo de adivinhação! '.center(50, '='),
+            ' Bem-vindo ao jogo de adivinhação! '.center(50, '='),
             end='\n\n',
         )
         print(
@@ -46,7 +62,7 @@ class GuessNumber:
         )
         self.play()
 
-    def play(self):
+    def play(self) -> None:
         """-> Play the game.
 
         :return: None
@@ -84,7 +100,7 @@ class GuessNumber:
                         f'{self.range[1]}! '.center(50, '_')
                     )
             except ValueError:
-                print('Você deve digitar um número inteiro! '.center(50, '_'))
+                print(' Você deve digitar um número inteiro! '.center(50, '_'))
 
     @staticmethod
     def play_again() -> bool:
