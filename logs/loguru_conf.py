@@ -18,8 +18,6 @@ logger.add(
     rotation='1 day',
     retention='10 days',
     format='{time:YYYY-MM-DD HH:mm:ss} | '
-    '{level} | {message} | '
-    '{file} '
-    '-> {line}',
+    '{level} | {message} | {file} -> {line}',
     # filter=lambda rec: 'api_domain' not in rec['message'].lower(),
 )
