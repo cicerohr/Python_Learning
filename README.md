@@ -25,4 +25,5 @@ performance of algorithms.
 ## Documentation
 
 * [Documentation about the studies](docs/index.md)
+* [References](docs/references.md)
 
