@@ -10,6 +10,7 @@ performance of algorithms.
     * [Linear search algorithm.](#linear-search-algorithm)
     * [Binary search algorithm.](#binary-search-algorithm)
     * [Interpolation search algorithm.](#interpolation-search-algorithm)
+    * [Algorithms performance test.](#algorithms-performance-test)
 * Selection Sort
     * [Selection sort algorithm.](#selection-sort-algorithm)
 
@@ -102,6 +103,77 @@ Code:
         else:
             high = index - 1
     return -1
+
+### Algorithms performance test.
+Code:
+
+    def main():
+        """-> Main function.
+    
+        Shows the running time of linear search, binary search and interpolation
+        search algorithms.
+        """
+        totais = [100, 1_000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000]
+    
+        for total in totais:
+            array = list(range(total))
+            value = total - 1
+            print(f'\nTotal of elements: {total:_}')
+    
+            start = timeit.default_timer()
+            linear_search(array, value)
+            end = timeit.default_timer()
+            print(f'\tlinear search:\t\t\t{end - start} s')
+    
+            start = timeit.default_timer()
+            binary_search(array, value)
+            end = timeit.default_timer()
+            print(f'\tBinary search:\t\t\t{end - start} s')
+    
+            start = timeit.default_timer()
+            interpolation_search(array, value)
+            end = timeit.default_timer()
+            print(f'\tInterpolation search:\t{end - start} s')
+
+Results:
+
+    Total of elements: 100
+        linear search:		8.500064723193645e-06 s
+        Binary search:		3.100023604929447e-06 s
+        Interpolation search:	1.9000144675374031e-06 s
+    
+    Total of elements: 1_000
+        linear search:		5.91999851167202e-05 s
+        Binary search:		2.800021320581436e-06 s
+        Interpolation search:	1.400010660290718e-06 s
+    
+    Total of elements: 10_000
+        linear search:		0.0005997000262141228 s
+        Binary search:		3.100023604929447e-06 s
+        Interpolation search:	1.200009137392044e-06 s
+    
+    Total of elements: 100_000
+        linear search:		0.006108399946242571 s
+        Binary search:		3.6999117583036423e-06 s
+        Interpolation search:	1.400010660290718e-06 s
+    
+    Total of elements: 1_000_000
+        linear search:		0.06024770007934421 s
+        Binary search:		7.200054824352264e-06 s
+        Interpolation search:	2.600019797682762e-06 s
+    
+    Total of elements: 10_000_000
+        linear search:		0.7200529000256211 s
+        Binary search:		1.8299906514585018e-05 s
+        Interpolation search:	2.800021320581436e-06 s
+    
+    Total of elements: 100_000_000
+        linear search:		11.250430999905802 s
+        Binary search:		0.0008574000094085932 s
+        Interpolation search:	0.00018770003225654364 s
+    
+    Process finished with exit code 0
+
 
 ## [Selection Sort](../src/selection_sort.py)
 
