@@ -74,7 +74,7 @@ class LojaTintas:
         )
 
     def __repr__(self) -> str:
-        """Retorna uma 'string' com os valores calculados.
+        """Retorna uma 'string' com a representação do objeto.
 
         :return: representação do objeto.
         """
@@ -165,8 +165,8 @@ def main():
             continue
 
     print()
+    logger.info(repr(LojaTintas(area)))
     print(LojaTintas(area))
-    print(repr(LojaTintas(area)))
 
 
 if __name__ == '__main__':
