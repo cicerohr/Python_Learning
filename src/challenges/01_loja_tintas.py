@@ -27,11 +27,11 @@ class LojaTintas:
     """Loja de tintas."""
 
     def __init__(
-            self,
-            area: float,
-            preco_lata: float = setup['preco_lata'],
-            preco_galao: float = setup['preco_galao'],
-            folga: float = setup['folga'],
+        self,
+        area: float,
+        preco_lata: float = setup['preco_lata'],
+        preco_galao: float = setup['preco_galao'],
+        folga: float = setup['folga'],
     ) -> None:
         """Inicialização do objeto.
 
@@ -78,11 +78,13 @@ class LojaTintas:
 
         :return: representação do objeto.
         """
-        return f'{type(self).__name__}' \
-               f'({self.area}, ' \
-               f'{self.preco_lata}, ' \
-               f'{self.preco_galao}, ' \
-               f'{self.folga})'
+        return (
+            f'{type(self).__name__}'
+            f'({self.area}, '
+            f'{self.preco_lata}, '
+            f'{self.preco_galao}, '
+            f'{self.folga})'
+        )
 
     def calcula_latas_galoes(self) -> tuple:
         """Calcula o número de latas e galões.
@@ -125,9 +127,9 @@ class LojaTintas:
         :return: tinta desperdicada.
         """
         return (
-                       self.calcula_latas_galoes()[0] * 18
-                       + self.calcula_latas_galoes()[1] * 3.6
-               ) - self.total_tinta
+            self.calcula_latas_galoes()[0] * 18
+            + self.calcula_latas_galoes()[1] * 3.6
+        ) - self.total_tinta
 
     def calcula_tinta_desperdicada_porcentagem(self) -> float:
         """Calcula a tinta desperdicada em porcentagem.
