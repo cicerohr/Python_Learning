@@ -10,7 +10,7 @@ from loguru import logger
 logger.remove()  # Don't show any logs on console (remove all handlers).
 
 logger.add(
-    '../logs/tools_logs.log',
+    './logs/tools_logs.log',
     level='DEBUG',
     backtrace=True,
     diagnose=True,

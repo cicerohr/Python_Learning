@@ -7,7 +7,7 @@ Comparison between search algorithms in ordered lists.
 """
 import timeit
 
-from logs.loguru_conf import logger
+from tests.loguru_conf import logger
 
 
 def linear_search(array: list, value: int | str) -> int:

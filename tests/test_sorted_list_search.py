@@ -1,7 +1,10 @@
 from unittest import TestCase
 
-from src.sorted_list_search import (binary_search, interpolation_search,
-                                    linear_search)
+from src.sorted_list_search import (
+    binary_search,
+    interpolation_search,
+    linear_search,
+)
 
 
 class TestAlgorithms(TestCase):

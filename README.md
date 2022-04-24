@@ -13,14 +13,14 @@ performance of algorithms.
 ### Sorted List Search
 
 * [code](src/sorted_list_search.py)
-  * Linear search algorithm.
-  * Binary search algorithm.
-  * Interpolation search algorithm.
+    * Linear search algorithm.
+    * Binary search algorithm.
+    * Interpolation search algorithm.
 
 ### Selection Sort
 
 * [code](src/selection_sort.py)
-  * Selection sort algorithm.
+    * Selection sort algorithm.
 
 ## Documentation
 

@@ -7,7 +7,7 @@ Source:
 https://www.youtube.com/watch?v=dFd6us_xFSc&list=PLvS2JoIlSA4AiEnL_tWkFFWpWfiGqzX83&index=2
 """
 
-from logs.loguru_conf import logger
+from tests.loguru_conf import logger
 
 
 def selection_sort(the_list: list) -> list:
