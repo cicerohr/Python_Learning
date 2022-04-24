@@ -14,6 +14,8 @@ respectivos preços em 3 situações:
     — Misturar latas e galões, de forma que o desperdício de tinta seja menor.
     Acrescente 10% de folga e sempre arredonde os valores para cima, isto é,
     considere latas cheias.
+
+https://pythonpro.com.br/desafio-python-em-14-dias-aula-1/
 """
 
 from tests.loguru_conf import logger
@@ -76,7 +78,11 @@ class LojaTintas:
 
         :return: representação do objeto.
         """
-        return self.__str__()
+        return f'{type(self).__name__}' \
+               f'({self.area}, ' \
+               f'{self.preco_lata}, ' \
+               f'{self.preco_galao}, ' \
+               f'{self.folga})'
 
     def calcula_latas_galoes(self) -> tuple:
         """Calcula o número de latas e galões.
@@ -160,6 +166,7 @@ def main():
 
     print()
     print(LojaTintas(area))
+    print(repr(LojaTintas(area)))
 
 
 if __name__ == '__main__':
