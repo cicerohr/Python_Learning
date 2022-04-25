@@ -58,7 +58,8 @@ class CaixaEletronico:
         :return: representação do objeto.
         :rtype: str
         """
-        return f'{type(self).__name__}.sacar({self.usuario_valor}) -> {self.notas_fornecidas}'
+        return f'{type(self).__name__}.sacar({self.usuario_valor}) -> ' \
+               f'{self.notas_fornecidas}'
 
     def sacar(self, saque: int) -> list | bool:
         """Método para sacar.
