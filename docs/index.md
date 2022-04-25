@@ -13,6 +13,8 @@ performance of algorithms.
     * [Algorithms performance test.](#algorithms-performance-test)
 * Selection Sort
     * [Selection sort algorithm.](#selection-sort-algorithm)
+* Challenges
+   * [Challenges Folder](../src/challenges)
 
 ## [Sorted List Search](../src/sorted_list_search.py)
 

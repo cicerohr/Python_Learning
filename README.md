@@ -8,6 +8,7 @@ performance of algorithms.
 
 * [Sorted List Search](#sorted-list-search)
 * [Selection Sort](#selection-sort)
+* [Challenges](#challenges)
 * [Documentation](#documentation)
 
 ### Sorted List Search
@@ -21,6 +22,11 @@ performance of algorithms.
 
 * [code](src/selection_sort.py)
     * Selection sort algorithm.
+
+### Challenges
+
+* [Folder](src/challenges)
+    * Folder with codes for solving challenges.
 
 ## Documentation
 
