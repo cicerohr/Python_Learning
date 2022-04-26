@@ -17,7 +17,7 @@ def linear_search(array: list, value: int | str) -> int:
     If both match, the element is found, and the algorithm returns the
     index position of the key.
 
-    Complexity of algorithm: O(n)
+    Complexity of algorithm: O(numero)
 
     :param array: list to search in.
     :param value: value to search for.
@@ -50,7 +50,7 @@ def binary_search(array: list, value: int | str) -> int:
     if the value is less, then the search continues in the left half of
     the array.
 
-    Complexity of algorithm: O(log n)
+    Complexity of algorithm: O(log numero)
 
     :param array: list to search in.
     :param value: value to search for.
@@ -96,7 +96,7 @@ def interpolation_search(array: list, value: int | str) -> int:
 
     Source: https://en.wikipedia.org/wiki/Interpolation_search
 
-    Complexity of algorithm: O(log(log n)).
+    Complexity of algorithm: O(log(log numero)).
 
     Tests:
     >>> interpolation_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10)

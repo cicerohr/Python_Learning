@@ -13,9 +13,9 @@ from tests.loguru_conf import logger
 def selection_sort(the_list: list) -> list:
     """-> Selection Sort Algorithm.
 
-    Complexity of algorithm: O(n²)
-    Comparisons: (n -1) + (n - 2) + ... + 1 = (n² - n)/2
-    Swap: n - 1
+    Complexity of algorithm: O(numero²)
+    Comparisons: (numero -1) + (numero - 2) + ... + 1 = (numero² - numero)/2
+    Swap: numero - 1
 
     :param the_list: list of elements to be sorted
     :return: list sorted

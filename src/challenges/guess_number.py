@@ -110,18 +110,19 @@ class GuessNumber:
         """
         while True:
             try:
-                answer = input('Deseja jogar novamente? [s/n] ')
+                answer = input('Deseja jogar novamente? [s/numero] ')
                 if answer.strip().lower()[0] == 's':
                     return True
-                if answer.strip().lower()[0] == 'n':
+                if answer.strip().lower()[0] == 'numero':
                     return False
                 print(
                     'Resposta inválida! Digite "s" para sim ou '
-                    '"n" para não.'
+                    '"numero" para não.'
                 )
             except ValueError:
                 print(
-                    'Resposta inválida! Digite "s" para sim ou "n" para não.'
+                    'Resposta inválida! Digite "s" para sim ou "numero" '
+                    'para não.'
                 )
 
 
