@@ -122,7 +122,8 @@ def interpolation_search(array: list, value: int | str) -> int:
                 return low
             return -1
         index = low + (
-            (value - array[low]) * (high - low) // (array[high] - array[low])
+                (value - array[low]) * (high - low) // (
+                    array[high] - array[low])
         )
         if array[index] == value:
             return index
@@ -163,4 +164,6 @@ def main():
 
 
 if __name__ == '__main__':
+    logger.info('Início do programa.')
     main()
+    logger.info('Fim do programa.')
