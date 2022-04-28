@@ -1,18 +1,19 @@
 # Desafio Python em 14 dias.
 
-<p align="center">
-<a href="#objetivo">Objetivo</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#conteúdo">Conteúdo</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#links">Links</a>
-</p>
-
-## Objetivo
-
 Desafio do site [PythonPro](https://pythonpro.com.br/) em aprender Python em
 14 dias através de exercícios do site
 [Python Brasil](https://wiki.python.org.br/ListaDeExercicios).
 
 Ministrado pelo Renzo Nuccitelli.
+
+---
+
+<p align="center">
+<a href="#conteúdo">Conteúdo</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#referências">Referências</a>
+</p>
+
+---
 
 ## Conteúdo
 
@@ -39,7 +40,7 @@ Ministrado pelo Renzo Nuccitelli.
 
 [🔝](#desafio-python-em-14-dias)
 
-## Links
+## Referências
 
 * [Desafio Python Pro](https://pythonpro.com.br/desafio-python-em-14-dias-aula-1/)
   ;
