@@ -3,15 +3,17 @@ r"""12_classes.py in: 2022-04-27.
 
 Python version: 3.10.0
 
-Classe Bola: Crie uma classe que modele uma bola:
-    - A Atributos: Cor, circunferência, material
-    - B Métodos: trocaCor e mostraCor
 """
 from tests.loguru_conf import logger
 
 
 class Bola:
-    """Classe que modela uma bola."""
+    """Classe que modela uma bola.
+
+    Atributos: cor, circunferência, material
+
+    Métodos: trocar_cor e mostrar_cor
+    """
 
     def __init__(self, cor: str, circunferencia: float, material: str) -> None:
         """Inicialização da classe.
@@ -59,7 +61,12 @@ class Bola:
 
 
 class Quadrado:
-    """Classe que modela um quadrado."""
+    """Classe que modela um quadrado.
+
+    Atributos: cor
+
+    Métodos: mudar_lado, calcular_area
+    """
 
     def __init__(self, lado: float) -> None:
         """Inicialização da classe.
@@ -117,6 +124,7 @@ class Pessoa:
     menor que 21 anos, ela deve crescer 0,5 cm.
 
     Testes:
+
     >>> p = Pessoa('João', 19, 80, 1.75)
     >>> p.envelhecer()
     >>> p.idade
