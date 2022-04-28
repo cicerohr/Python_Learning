@@ -145,7 +145,7 @@ class Pessoa:
     """
 
     def __init__(
-        self, nome: str, idade: int, peso: float, altura: float
+            self, nome: str, idade: int, peso: float, altura: float
     ) -> None:
         """Inicialização da classe.
 
@@ -167,7 +167,7 @@ class Pessoa:
         """
         self.idade += 1
         if self.idade < 21:
-            self.crescer(0.5)
+            self.crescer(0.5)  # encapsulamento do crescimento
         logger.info(f'{self.nome} envelheceu.')
 
     def engordar(self, kg: float) -> None:
