@@ -63,7 +63,7 @@ class Bola:
 class Quadrado:
     """Classe que modela um quadrado.
 
-    Atributos: cor
+    Atributos: lado
 
     Métodos: mudar_lado, calcular_area
     """
