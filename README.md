@@ -4,12 +4,16 @@ The objective of this project is to create programs for learning the Python
 programming language, as well as the use of libraries to improve the
 performance of algorithms.
 
-## Contents
+---
 
-* [Sorted List Search](#sorted-list-search)
-* [Selection Sort](#selection-sort)
-* [Challenges](#challenges)
-* [Documentation](#documentation)
+<p align="center">
+<a href="#sorted-list-search">Sorted List Search</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#selection-sort">Selection Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#challenges">Challenges</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#documentation">Documentation</a>&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+
+---
 
 ### Sorted List Search
 
@@ -18,18 +22,25 @@ performance of algorithms.
     * Binary search algorithm.
     * Interpolation search algorithm.
 
+[🔝](#python-studies)
+
 ### Selection Sort
 
 * [code](src/selection_sort.py)
     * Selection sort algorithm.
 
+[🔝](#python-studies)
+
 ### Challenges
 
-* [Folder with codes for solving challenges](src/challenges)
+* Folder with codes for solving challenges
     * [Python Pro](src/challenges/python_pro)
 
-## Documentation
+[🔝](#python-studies)
+
+### Documentation
 
 * [Documentation about the studies](docs/index.md)
 * [References](docs/references.md)
 
+[🔝](#python-studies)
