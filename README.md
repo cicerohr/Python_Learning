@@ -25,8 +25,8 @@ performance of algorithms.
 
 ### Challenges
 
-* [Folder](src/challenges)
-    * Folder with codes for solving challenges.
+* [Folder with codes for solving challenges](src/challenges)
+    * [Python Pro](src/challenges/python_pro)
 
 ## Documentation
 
