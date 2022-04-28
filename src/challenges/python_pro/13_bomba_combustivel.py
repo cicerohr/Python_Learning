@@ -9,7 +9,7 @@ métodos que:
 Possua uma classe chamada BombaCombustivel, com no mínimo esses atributos:
     * tipo_combustivel;
     * valor_litro;
-    * quantidade_combustivel.
+    * quantidade_combustivel_bomba.
 Possua no mínimo esses métodos:
     * abastecer_por_valor() — método onde é informado o valor a ser abastecido
         e mostra a quantidade de litros colocada no veículo;
@@ -21,110 +21,176 @@ Possua no mínimo esses métodos:
 
     * alterar_combustivel() — altera o tipo do combustível;
 
-    * alterar_quantidade_combustivel() — altera a quantidade de combustível
-        restante na bomba.
+    * abastecer_bomba() — acrescentar combustível na bomba.
 
 Obs.: sempre que acontecer um abastecimento é necessário atualizar a quantidade
 de combustível total na bomba.
+
+Não permitir abastecer o tanque com litros negativos na bomba.
 """
 from tests.loguru_conf import logger
 
 
 class BombaCombustivel:
-    """Classe Bomba de Combustível."""
+    """Classe Bomba de Combustível.
 
-    def __init__(self, tipo_combustivel, valor_litro, quantidade_combustivel):
-        """Inicialização da classe."""
+    Atributos:
+        * tipo_combustivel;
+        * valor_litro;
+        * quantidade_combustivel_bomba.
+
+    Testes:
+        >>> bomba = BombaCombustivel('Gasolina', 4.59, 100)
+        >>> bomba.abastecer_por_valor(100)
+        Abastecido com R$ 100.
+        Litros: 21.79.
+        >>> bomba.abastecer_por_litro(50)
+        Abastecido com 50.00 litros.
+        Valor a pagar: R$ 229.50.
+        >>> bomba.alterar_valor(5.59)
+        Valor do litro alterado para R$ 5.59
+        >>> bomba.abastecer_por_litro(50)
+        Não há combustível suficiente na bomba!
+        Combustível restante: 28.21 litros.
+        >>> bomba.abastecer_bomba(100)
+        >>> bomba.abastecer_por_litro(-50)
+        Não é possível abastecer com valor negativo!
+        >>> bomba.abastecer_por_valor(-100)
+        Não é possível abastecer com valor negativo!
+    """
+
+    def __init__(
+        self,
+        tipo_combustivel: str,
+        valor_litro: float,
+        quantidade_combustivel_bomba: float,
+    ) -> None:
+        """Inicialização da classe.
+
+        :param tipo_combustivel: qual combustível.
+        :param valor_litro: preço do litro do combustível.
+        :param quantidade_combustivel_bomba: combustível restante na bomba.
+        """
         self.tipo_combustivel = tipo_combustivel
         self.valor_litro = valor_litro
-        self.quantidade_combustivel = quantidade_combustivel
+        self.quantidade_combustivel_bomba = quantidade_combustivel_bomba
 
-    def abastecer_por_valor(self, valor):
-        """Abastece por valor.
+    def _verificar_bomba(self, litros_abastecer: float) -> bool:
+        """Informar se há combustível suficiente na bomba.
 
-        Método onde é informado o valor a ser abastecido e mostra a quantidade
-        de litros colocada no veículo.
+        Verifica se a quantidade de combustível solicitada é maior que a
+        quantidade de combustível restante na bomba.
 
+        :param litros_abastecer: quantidade de litros a ser abastecida.
+        :return: True se houver combustível suficiente na bomba. False se não.
         """
-        logger.info(f'Abastecendo por valor...')
-        self.quantidade_combustivel += valor / self.valor_litro
-        logger.info(f'Quant. de combustível: {self.quantidade_combustivel}')
-        logger.info(f'Valor total: {valor}')
-        logger.info(f'Valor por litro: {self.valor_litro}')
-        logger.info(f'Tipo de combustível: {self.tipo_combustivel}')
-        logger.info(f'Abastecimento realizado com sucesso!')
+        if litros_abastecer > self.quantidade_combustivel_bomba:
+            print(
+                f'Não há combustível suficiente na bomba!\n'
+                f'Combustível restante: '
+                f'{self.quantidade_combustivel_bomba:.2f} litros.'
+            )
+            logger.error(
+                f'Não há combustível suficiente na bomba!\n'
+                f'Combustível restante: {self.quantidade_combustivel_bomba}'
+            )
+            return False
+        if litros_abastecer < 0:
+            print('Não é possível abastecer com valor negativo!')
+            logger.error('Não é possível abastecer com valor negativo!')
+            return False
+        return True
 
-    def abastecer_por_litro(self, litros):
-        """Abastece por litro.
+    def abastecer_por_valor(self, valor_abastecer: float) -> None:
+        """Abastecer por valor.
 
-        Método onde é informado a quantidade em litros de combustível e mostra
-        o valor a ser pago pelo cliente.
-
+        :param valor_abastecer: valor a ser abastecido.
         """
-        logger.info(f'Abastecendo por litro...')
-        self.quantidade_combustivel -= litros
-        logger.info(f'Quant. de combustível: {self.quantidade_combustivel}')
-        logger.info(f'Valor total: {litros * self.valor_litro}')
-        logger.info(f'Valor por litro: {self.valor_litro}')
-        logger.info(f'Tipo de combustível: {self.tipo_combustivel}')
-        logger.info(f'Abastecimento realizado com sucesso!')
+        if self._verificar_bomba(valor_abastecer / self.valor_litro):
+            self.quantidade_combustivel_bomba -= (
+                valor_abastecer / self.valor_litro
+            )
+            print(
+                f'Abastecido com R$ {valor_abastecer}.\n'
+                f'Litros: {valor_abastecer / self.valor_litro:.2f}.'
+            )
+            logger.info(
+                f'Abastecimento realizado com sucesso!\n'
+                f'Combustível restante: '
+                f'{self.quantidade_combustivel_bomba:.2f} litros'
+            )
 
-    def alterar_valor(self, valor):
-        """Altera o valor do litro do combustível."""
-        logger.info(f'Alterando o valor do litro do combustível...')
-        self.valor_litro = valor
-        logger.info(f'Valor por litro: {self.valor_litro}')
-        logger.info(f'Abastecimento realizado com sucesso!')
+    def abastecer_por_litro(self, litros_abastecer: float) -> None:
+        """Abastecer por litro.
 
-    def alterar_combustivel(self, tipo_combustivel):
-        """Altera o tipo do combustível."""
-        logger.info(f'Alterando o tipo do combustível...')
-        self.tipo_combustivel = tipo_combustivel
-        logger.info(f'Tipo de combustível: {self.tipo_combustivel}')
-        logger.info(f'Abastecimento realizado com sucesso!')
+        :param litros_abastecer: quantidade de litros a ser abastecida.
+        """
+        if self._verificar_bomba(litros_abastecer):
+            self.quantidade_combustivel_bomba -= litros_abastecer
+            print(
+                f'Abastecido com {litros_abastecer:.2f} litros.\n'
+                f'Valor a pagar: R$ {litros_abastecer * self.valor_litro:.2f}.'
+            )
+            logger.info(
+                f'Abastecimento realizado com sucesso!\n'
+                f'Combustível restante: {self.quantidade_combustivel_bomba}'
+            )
 
-    def alterar_quantidade_combustivel(self, quantidade_combustivel):
-        """Altera a quantidade de combustível restante na bomba."""
-        logger.info(f'Alterando a quan. de combustível restante na bomba...')
-        self.quantidade_combustivel = quantidade_combustivel
-        logger.info(f'Quant. de combustível: {self.quantidade_combustivel}')
-        logger.info(f'Abastecimento realizado com sucesso!')
+    def abastecer_bomba(self, litros_abastecer: float) -> None:
+        """Acrescenta combustível na bomba.
+
+        :param litros_abastecer: quantidade de litros a ser abastecida.
+        """
+        if litros_abastecer > 0:
+            self.quantidade_combustivel_bomba += litros_abastecer
+            logger.info(
+                f'Abastecimento realizado com sucesso!\n'
+                f'Combustível restante: {self.quantidade_combustivel_bomba}'
+            )
+        else:
+            print('Valor inválido.')
+
+    def alterar_valor(self, novo_valor: float) -> None:
+        """Altera o valor do litro.
+
+        :param novo_valor: novo valor do litro.
+        """
+        self.valor_litro = novo_valor
+        print(f'Valor do litro alterado para R$ {novo_valor}')
+        logger.info(f'Valor do litro alterado para R$ {novo_valor}')
 
     def __str__(self):
-        """Retorna uma ‘string’ com os dados da bomba."""
+        """String do objeto."""
         return (
-            f'Tipo de combustível: {self.tipo_combustivel}\n'
-            f'Valor por litro: {self.valor_litro}\n'
-            f'Quant. de combustível: {self.quantidade_combustivel}'
+            f'Bomba de {self.tipo_combustivel}.\n'
+            f'Valor do litro: R$ {self.valor_litro:.2f}.\n'
+            f'Combustível restante: '
+            f'{self.quantidade_combustivel_bomba:.2f} litros.'
         )
 
-    def __repr__(self) -> str:
-        """Representação da classe.
-
-        :return: representação da classe.
-        :rtype: str
-        """
+    def __repr__(self):
+        """Representação da classe."""
         return (
-            f'<class {self.__class__.__name__}> {self.__class__.__doc__}'
-            f'\n{self.__class__.__module__} {self.__dict__}'
+            f'<{self.__class__.__name__}> {self.__class__.__doc__}\n'
+            f'{self.__class__.__module__} {self.__dict__}'
         )
 
 
 def main():
     """Função principal."""
-    bomba = BombaCombustivel('Gasolina', 4.50, 10)
+    bomba = BombaCombustivel('Gasolina', 4.59, 100)
     print(bomba, '-' * 60, sep='\n')
     bomba.abastecer_por_valor(100)
     print(bomba, '-' * 60, sep='\n')
-    bomba.abastecer_por_litro(2)
+    bomba.abastecer_por_litro(100)
     print(bomba, '-' * 60, sep='\n')
-    bomba.alterar_valor(3.50)
+    bomba.abastecer_bomba(100)
     print(bomba, '-' * 60, sep='\n')
-    bomba.alterar_combustivel('Álcool')
+    bomba.alterar_valor(5.59)
     print(bomba, '-' * 60, sep='\n')
-    bomba.alterar_quantidade_combustivel(20)
+    bomba.abastecer_por_litro(50)
     print(bomba, '-' * 60, sep='\n')
-    print(bomba.__repr__())
+    print(repr(bomba))
 
 
 if __name__ == '__main__':
