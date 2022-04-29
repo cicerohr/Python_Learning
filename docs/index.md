@@ -247,7 +247,7 @@ Code:
             case 3:
                 print(3)
             case _:  # default
-                print('diferente de 1, 2 e 3')
+                print('different from 1, 2 and 3')
     
     print(' Pattern matching with literals '.center(80, '-').title())
     pattern_matching_switch_case(1)
