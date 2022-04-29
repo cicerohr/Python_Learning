@@ -9,7 +9,7 @@ performance of algorithms.
 <p align="center">
 <a href="#sorted-list-search">Sorted List Search</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#selection-sort">Selection Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#ppattern-matching-statement">Pattern Matching</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#pattern-matching-statement">Pattern Matching</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#challenges">Challenges</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#documentation">Documentation</a>&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
