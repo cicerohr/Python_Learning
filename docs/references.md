@@ -5,6 +5,10 @@
 - [Binary search algorithm][1] (Wikipedia)
 - [Interpolation search][2] (Wikipedia)
 
+#### Structural Pattern Matching
+- [PEP 634][10] (Structural Pattern Matching) - Python-Version: 3.10
+- [Eduardo Mendes][11] (Live on YouTube) 
+
 #### Tools
 
 - [Pycharm][4] - IDE for Python
@@ -32,4 +36,8 @@
 [8]: <https://mkdocs.org/> 'Documentation generator'
 
 [9]: <https://squidfunk.github.io/mkdocs-material/getting-started/> 'Material theme for MkDocs'
+
+[10]: <https://peps.python.org/pep-0634/> 'Python 3.10+'
+
+[11]: <https://www.youtube.com/watch?v=QqigW-yxtOw> 'Live on YouTube'
 

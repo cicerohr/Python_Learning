@@ -9,6 +9,7 @@ performance of algorithms.
 <p align="center">
 <a href="#sorted-list-search">Sorted List Search</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#selection-sort">Selection Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#pattern_matching">Pattern Matching</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#challenges">Challenges</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#documentation">Documentation</a>&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
@@ -28,6 +29,12 @@ performance of algorithms.
 
 * [code](src/selection_sort.py)
     * Selection sort algorithm.
+
+[🔝](#python-studies)
+
+### Pattern Matching
+* [code](src/pattern_matching.py)
+    * Pattern matching (PEP 634: Structural Pattern Matching).
 
 [🔝](#python-studies)
 

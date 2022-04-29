@@ -13,6 +13,8 @@ performance of algorithms.
     * [Algorithms performance test.](#algorithms-performance-test)
 * Selection Sort
     * [Selection sort algorithm.](#selection-sort-algorithm)
+* Pattern Matching
+    * [Pattern matching statement.](#pattern-matching-statement)
 * Challenges
    * [Challenges Folder](../src/challenges)
 
@@ -194,3 +196,239 @@ Code:
                 minimum = j
         the_list[i], the_list[minimum] = the_list[minimum], the_list[i]
     return the_list
+
+## [Pattern matching statement](../src/pattern_matching.py)
+
+The primary outcome of pattern matching is success or failure. In case of 
+success we may say “the pattern succeeds”, “the match succeeds”, or 
+“the pattern matches the subject value”.
+
+In many cases a pattern contains subpatterns, and success or failure is 
+determined by the success or failure of matching those subpatterns against the 
+value (e.g., for OR patterns) or against parts of the value 
+(e.g., for sequence patterns). This process typically processes the subpatterns 
+from left to right until the overall outcome is determined. 
+E.g., an OR pattern succeeds at the first succeeding subpattern, while a 
+sequence patterns fails at the first failing subpattern.
+
+A secondary outcome of pattern matching may be one or more name bindings. We 
+may say “the pattern binds a value to a name”. When subpatterns tried until 
+the first success, only the bindings due to the successful subpattern 
+are valid; when trying until the first failure, the bindings are merged. 
+Several more rules, explained below, apply to these cases. 
+(See [PEP 634](https://peps.python.org/pep-0634/) for more details.)
+
+<p align="center">
+<a href="#pattern-matching-with-literals">Pattern matching with literals</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#pattern-matching-with-collections">Pattern matching with collections</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#naming-elements-in-pattern-matching">Naming elements in pattern matching</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#guard-pattern-matching">Guard pattern matching</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+### Pattern matching with literals
+Code:
+
+    def pattern_matching_switch_case(value):
+    """Pattern matching used as switch case (literal)."""
+
+        match value:
+            case 1:
+                print(1)
+            case 2:
+                print(2)
+            case 3:
+                print(3)
+            case _:  # default
+                print('diferente de 1, 2 e 3')
+    
+    print(' Pattern matching with literals '.center(80, '-').title())
+    pattern_matching_switch_case(1)
+    pattern_matching_switch_case(2)
+    pattern_matching_switch_case(3)
+    pattern_matching_switch_case(4)
+
+Result:
+
+    ------------------------ Pattern Matching With Literals ------------------------
+    1
+    2
+    3
+    diferente de 1, 2 e 3
+
+### Pattern matching with collections
+code:
+
+    def pattern_matching_not_literal(collection_values):
+        """Pattern matching not literal."""
+
+        match collection_values:
+            case [1, 2, 3]:
+                print(collection_values, f':pattern: [1, 2, 3]')
+                print('collection of 3 elements with 1, 2 and 3; in this order',
+                      end='\n\n')
+            case [1, _, _]:  # _ is a wildcard
+                print(collection_values, f':pattern: [1, _, _]')
+                print('1 has to be the first element of the collection, '
+                      'other elements can be anything', end='\n\n')
+            case [_, 2, _]:
+                print(collection_values, f':pattern: [_, 2, _]')
+                print('2 must be the second element of the collection, '
+                      'other elements can be anything', end='\n\n')
+            case [] | [_]:  # | is the union operator
+                print(collection_values, f':pattern: [] | [_]')
+                print('empty collection or collection with one element',
+                      end='\n\n')
+            case [5 | 6, _, _]:  # | is the union operator
+                print(collection_values, f':pattern: [5 | 6, _, _]')
+                print('5 or 6 must be the first element of the collection, '
+                      'other elements can be anything', end='\n\n')
+            case [1, 2]:
+                print(collection_values, f':pattern: [1, 2]')
+                print('collection with elements 1 and 2, in that order',
+                      end='\n\n')
+            case [1, *_]:  # * is the splat operator
+                print(collection_values, f':pattern: [1, *_]')
+                print('collection with first element 1 and '
+                      'any other element(s)', end='\n\n')
+            case (7, *rest):  # * is the splat operator
+                print(collection_values, f':pattern: (7, *rest)')
+                print(f'collection with the first element 7 and '
+                      f'the rest of the elements {rest=}', end='\n\n')
+            case _:  # default
+                print(collection_values)
+                print('collection does not match pattern', end='\n\n')
+    
+    print(' Pattern matching with collections '.center(80, '-').title())
+    pattern_matching_not_literal([4, 5, 6])
+    pattern_matching_not_literal([1, 2, 3])
+    pattern_matching_not_literal([1, 2, 4])
+    pattern_matching_not_literal([3, 2, 1])
+    pattern_matching_not_literal([])
+    pattern_matching_not_literal([1])
+    pattern_matching_not_literal([5, 9, 6])
+    pattern_matching_not_literal([6, 9, 6])
+    pattern_matching_not_literal([1, 2])
+    pattern_matching_not_literal([1, 2, 3, 4])
+    pattern_matching_not_literal((7, 8, 9, 10))
+
+Result:
+
+    ---------------------- Pattern Matching With Collections -----------------------
+    [4, 5, 6]
+    collection does not match pattern
+    
+    [1, 2, 3] :pattern: [1, 2, 3]
+    collection of 3 elements with 1, 2 and 3; in this order
+    
+    [1, 2, 4] :pattern: [1, _, _]
+    1 has to be the first element of the collection, other elements can be anything
+    
+    [3, 2, 1] :pattern: [_, 2, _]
+    2 must be the second element of the collection, other elements can be anything
+    
+    [] :pattern: [] | [_]
+    empty collection or collection with one element
+    
+    [1] :pattern: [] | [_]
+    empty collection or collection with one element
+    
+    [5, 9, 6] :pattern: [5 | 6, _, _]
+    5 or 6 must be the first element of the collection, other elements can be anything
+    
+    [6, 9, 6] :pattern: [5 | 6, _, _]
+    5 or 6 must be the first element of the collection, other elements can be anything
+    
+    [1, 2] :pattern: [1, 2]
+    collection with elements 1 and 2, in that order
+    
+    [1, 2, 3, 4] :pattern: [1, *_]
+    collection with first element 1 and any other element(s)
+    
+    (7, 8, 9, 10) :pattern: (7, *rest)
+    collection with the first element 7 and the rest of the elements rest=[8, 9, 10]
+
+### Naming elements in pattern matching
+Code:
+
+    def naming_elements_in_pattern_matching(color):
+        """Naming each element of a collection."""
+
+        match color:
+            case r, g, b:
+                print(f'r={r}, g={g}, b={b}', end='\n\n')
+            case r, g, b, a:
+                print(f'r={r}, g={g}, b={b}, a={a}', end='\n\n')
+            case r, g, b, a, _:  # _ is a wildcard
+                print(f'r={r}, g={g}, b={b}, a={a}', end='\n\n')
+            case c, m, y, k:
+                print(f'c={c}, m={m}, y={y}, k={k}', end='\n\n')
+
+    print(' Naming elements in pattern matching '.center(80, '-').title())
+    naming_elements_in_pattern_matching((255, 255, 255))
+    naming_elements_in_pattern_matching((255, 255, 255, 255))
+    naming_elements_in_pattern_matching((255, 255, 255, 255, 255))
+    naming_elements_in_pattern_matching((255, 255, 255, 255, 255, 255))
+    
+Result:
+
+    --------------------- Naming Elements In Pattern Matching ----------------------
+    r=255, g=255, b=255
+    
+    r=255, g=255, b=255, a=255
+    
+    r=255, g=255, b=255, a=255    
+
+### Guard pattern matching
+Code:
+
+    def guard_pattern_matching(color):
+        """Guard pattern matching."""
+
+        match color:
+            case r, g, b:
+                print(f'Where is the alpha channel?')
+                print(f'r={r}, g={g}, b={b}', end='\n\n')
+            case r, g, b, a if r == 0 and g == 0 and b == 0:
+                print(f'Black: {r}, {g}, {b}, {a}', end='\n\n')
+            case r, g, b, a if r == 255 and g == 255 and b == 255:
+                print(f'White: {r}, {g}, {b}, {a}', end='\n\n')
+            case r, g, b, a if a == 0:
+                print(f'Alpha channel is transparent: {a}')
+                print(f'r={r}, g={g}, b={b}, a={a}', end='\n\n')
+            case r, g, b, a if a == 1:
+                print(f'Alpha channel is opaque: {a}')
+                print(f'r={r}, g={g}, b={b}, a={a}', end='\n\n')
+            case r, g, b, a if a == 0.5:
+                print(f'Alpha channel is 50% transparent: {a}')
+                print(f'r={r}, g={g}, b={b}, a={a}', end='\n\n')
+            case _:
+                print(f'Color does not match pattern.', end='\n\n')
+
+    print(' Guard pattern matching '.center(80, '-').title())
+    guard_pattern_matching((205, 255, 255))
+    guard_pattern_matching((0, 0, 0, 1))
+    guard_pattern_matching((255, 255, 255, 1))
+    guard_pattern_matching([205, 255, 255, 0])
+    guard_pattern_matching([205, 255, 255, 1])
+    guard_pattern_matching([205, 255, 255, 0.5])
+    guard_pattern_matching([205, 255, 255, 0.5, 0.5])
+    
+Result:
+
+    ---------------------------- Guard Pattern Matching ----------------------------
+    Where is the alpha channel?
+    r=205, g=255, b=255
+    
+    Black: 0, 0, 0, 1
+    
+    White: 255, 255, 255, 1
+    
+    Alpha channel is transparent: 0
+    r=205, g=255, b=255, a=0
+    
+    Alpha channel is opaque: 1
+    r=205, g=255, b=255, a=1
+    
+    Alpha channel is 50% transparent: 0.5
+    r=205, g=255, b=255, a=0.5
+    
+    Color does not match pattern.
