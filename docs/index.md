@@ -32,6 +32,8 @@ Code:
             return i
     return -1
 
+[🔝](#studies)
+
 ### Binary search algorithm.
 
 We start with a hunch of where the wanted element might be. Our guess is always
@@ -58,6 +60,8 @@ Code:
         else:
             high = mid - 1
     return -1
+
+[🔝](#studies)
 
 ### Interpolation search algorithm.
 
@@ -107,6 +111,8 @@ Code:
         else:
             high = index - 1
     return -1
+
+[🔝](#studies)
 
 ### Algorithms performance test.
 Code:
@@ -178,6 +184,7 @@ Results:
     
     Process finished with exit code 0
 
+[🔝](#studies)
 
 ## [Selection Sort](../src/selection_sort.py)
 
@@ -196,6 +203,8 @@ Code:
                 minimum = j
         the_list[i], the_list[minimum] = the_list[minimum], the_list[i]
     return the_list
+
+[🔝](#studies)
 
 ## [Pattern matching statement](../src/pattern_matching.py)
 
@@ -253,6 +262,8 @@ Result:
     2
     3
     diferente de 1, 2 e 3
+
+[🔝](#pattern-matching-statement)
 
 ### Pattern matching with collections
 code:
@@ -346,6 +357,8 @@ Result:
     (7, 8, 9, 10) :pattern: (7, *rest)
     collection with the first element 7 and the rest of the elements rest=[8, 9, 10]
 
+[🔝](#pattern-matching-statement)
+
 ### Naming elements in pattern matching
 Code:
 
@@ -376,6 +389,8 @@ Result:
     r=255, g=255, b=255, a=255
     
     r=255, g=255, b=255, a=255    
+
+[🔝](#pattern-matching-statement)
 
 ### Guard pattern matching
 Code:
@@ -432,3 +447,5 @@ Result:
     r=205, g=255, b=255, a=0.5
     
     Color does not match pattern.
+
+[🔝](#pattern-matching-statement)
