@@ -261,7 +261,7 @@ Result:
     1
     2
     3
-    diferente de 1, 2 e 3
+    different from 1, 2 and 3
 
 [🔝](#pattern-matching-statement)
 
