@@ -6,7 +6,9 @@
 - [Interpolation search][2] (Wikipedia)
 
 #### Structural Pattern Matching
-- [PEP 634][10] (Structural Pattern Matching) - Python-Version: 3.10
+- [PEP 634][10] (Structural Pattern Matching: Specification)
+- [PEP 635][13] (Structural Pattern Matching: Motivation and Rationale)
+- [PEP 636][12] (Structural Pattern Matching: Tutorial)
 - [Eduardo Mendes][11] (Live on YouTube) 
 
 #### Tools
@@ -37,7 +39,10 @@
 
 [9]: <https://squidfunk.github.io/mkdocs-material/getting-started/> 'Material theme for MkDocs'
 
-[10]: <https://peps.python.org/pep-0634/> 'Python 3.10+'
+[10]: <https://peps.python.org/pep-0634/> 'Specification'
 
 [11]: <https://www.youtube.com/watch?v=QqigW-yxtOw> 'Live on YouTube'
 
+[12]: <https://peps.python.org/pep-0636/> 'Tutorial'
+
+[13]: <https://peps.python.org/pep-0635/> 'Motivation and Rationale'
