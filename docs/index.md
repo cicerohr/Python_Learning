@@ -233,7 +233,7 @@ Several more rules, explained below, apply to these cases.
 <a href="#naming-elements-in-pattern-matching">Naming elements in pattern matching</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#guard-pattern-matching">Guard pattern matching</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#irrefutable-case-blocks">Irrefutable case blocks</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#matching_patterns_in_classes">Matching patterns in classes</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#matching-patterns-in-classes">Matching patterns in classes</a>&nbsp;&nbsp;&nbsp;&nbsp;
 
 ### Pattern matching with literals
 Code:
