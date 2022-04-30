@@ -232,6 +232,8 @@ Several more rules, explained below, apply to these cases.
 <a href="#pattern-matching-with-collections">Pattern matching with collections</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#naming-elements-in-pattern-matching">Naming elements in pattern matching</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#guard-pattern-matching">Guard pattern matching</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#irrefutable-case-blocks">Irrefutable case blocks</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#matching_patterns_in_classes">Matching patterns in classes</a>&nbsp;&nbsp;&nbsp;&nbsp;
 
 ### Pattern matching with literals
 Code:
@@ -447,5 +449,127 @@ Result:
     r=205, g=255, b=255, a=0.5
     
     Color does not match pattern.
+
+[🔝](#pattern-matching-statement)
+
+### Irrefutable case blocks
+Code:
+
+    def irrefutable_case_blocks_with_wildcard(action):
+        """Irrefutable case blocks with wildcard."""
+        match action.split():
+            case 'move', 'up' | 'down' as direction:  # | is the union operator
+                print(f'Moving {direction}', end='\n\n')
+            case 'move', 'left' | 'right' as direction:
+                print(f'Moving {direction}', end='\n\n')
+            # case 'move', *_ as direction:  # * is the splat operator
+            #     print(f'Moving {direction}', end='\n\n')
+            case 'move', *_, 'fast' as direction:
+                print(f'Moving {direction} fast', end='\n\n')
+            case 'move', *_, 'slow' as direction:
+                print(f'Moving {direction} slow', end='\n\n')
+            case 'move', *_, 'fast', 'fast' as direction:
+                print(f'Moving {direction} fast fast', end='\n\n')
+            case 'move', *_, 'slow', 'slow' as direction:
+                print(f'Moving {direction} slow slow', end='\n\n')
+
+    print(' Irrefutable case blocks '.center(80, '-').title())
+    irrefutable_case_blocks_with_wildcard('move up')
+    irrefutable_case_blocks_with_wildcard('move down')
+    irrefutable_case_blocks_with_wildcard('move left')
+    irrefutable_case_blocks_with_wildcard('move right')
+    irrefutable_case_blocks_with_wildcard('move fast')
+    irrefutable_case_blocks_with_wildcard('move slow')
+    irrefutable_case_blocks_with_wildcard('move fast fast')
+    irrefutable_case_blocks_with_wildcard('move slow slow')
+    irrefutable_case_blocks_with_wildcard('move fast fast fast')
+    irrefutable_case_blocks_with_wildcard('move slow slow slow')
+
+Result:
+
+    --------------------------- Irrefutable Case Blocks ----------------------------
+    Moving up
+    
+    Moving down
+    
+    Moving left
+    
+    Moving right
+    
+    Moving fast fast
+    
+    Moving slow slow
+    
+    Moving fast fast
+    
+    Moving slow slow
+    
+    Moving fast fast
+    
+    Moving slow slow
+
+[🔝](#pattern-matching-statement)
+
+### Matching patterns in classes
+Code:
+
+    class ServiceLevel:
+        def __init__(self, subscription, msg_type):
+            self.subscription = subscription
+            self.msg_type = msg_type
+    
+        def get_service_level(self):
+            match self:
+                case ServiceLevel(subscription=_, msg_type='info'):
+                    print(
+                        'Level = 0',
+                        f'Subscription = {self.subscription}',
+                        f'Msg type = {self.msg_type}',
+                        sep='\n',
+                        end='\n\n'
+                    )
+                case ServiceLevel(subscription='free', msg_type='error'):
+                    print(
+                        'Level = 1',
+                        f'Subscription = {self.subscription}',
+                        f'Msg type = {self.msg_type}',
+                        sep='\n',
+                        end='\n\n'
+                    )
+                case ServiceLevel(subscription='premium', msg_type='error'):
+                    print(
+                        'Level = 2',
+                        f'Subscription = {self.subscription}',
+                        f'Msg type = {self.msg_type}',
+                        sep='\n',
+                        end='\n\n'
+                    )
+                case _:
+                    print('Provide valid parameters')
+
+    print(' Matching patterns in classes '.center(80, '-').title())
+    ServiceLevel('free', 'info').get_service_level()
+    ServiceLevel('free', 'error').get_service_level()
+    ServiceLevel('premium', 'error').get_service_level()
+    ServiceLevel('premium', 'info').get_service_level()
+
+Result:
+
+    ------------------------- Matching Patterns In Classes -------------------------
+    Level = 0
+    Subscription = free
+    Msg type = info
+    
+    Level = 1
+    Subscription = free
+    Msg type = error
+    
+    Level = 2
+    Subscription = premium
+    Msg type = error
+    
+    Level = 0
+    Subscription = premium
+    Msg type = info
 
 [🔝](#pattern-matching-statement)
