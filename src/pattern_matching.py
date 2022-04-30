@@ -110,7 +110,61 @@ def guard_pattern_matching(color):
             print(f'Alpha channel is 50% transparent: {a}')
             print(f'r={r}, g={g}, b={b}, a={a}', end='\n\n')
         case _:
-            print(f'Color does not match pattern.', end='\n\n')
+            print('Color does not match pattern.', end='\n\n')
+
+
+def irrefutable_case_blocks_with_wildcard(action):
+    """Irrefutable case blocks with wildcard."""
+    match action.split():
+        case 'move', 'up' | 'down' as direction:  # | is the union operator
+            print(f'Moving {direction}', end='\n\n')
+        case 'move', 'left' | 'right' as direction:
+            print(f'Moving {direction}', end='\n\n')
+        # case 'move', *_ as direction:  # * is the splat operator
+        #     print(f'Moving {direction}', end='\n\n')
+        case 'move', *_, 'fast' as direction:
+            print(f'Moving {direction} fast', end='\n\n')
+        case 'move', *_, 'slow' as direction:
+            print(f'Moving {direction} slow', end='\n\n')
+        case 'move', *_, 'fast', 'fast' as direction:
+            print(f'Moving {direction} fast fast', end='\n\n')
+        case 'move', *_, 'slow', 'slow' as direction:
+            print(f'Moving {direction} slow slow', end='\n\n')
+
+
+class ServiceLevel:
+    def __init__(self, subscription, msg_type):
+        self.subscription = subscription
+        self.msg_type = msg_type
+
+    def get_service_level(self):
+        match self:
+            case ServiceLevel(subscription=_, msg_type='info'):
+                print(
+                    'Level = 0',
+                    f'Subscription = {self.subscription}',
+                    f'Msg type = {self.msg_type}',
+                    sep='\n',
+                    end='\n\n'
+                )
+            case ServiceLevel(subscription='free', msg_type='error'):
+                print(
+                    'Level = 1',
+                    f'Subscription = {self.subscription}',
+                    f'Msg type = {self.msg_type}',
+                    sep='\n',
+                    end='\n\n'
+                )
+            case ServiceLevel(subscription='premium', msg_type='error'):
+                print(
+                    'Level = 2',
+                    f'Subscription = {self.subscription}',
+                    f'Msg type = {self.msg_type}',
+                    sep='\n',
+                    end='\n\n'
+                )
+            case _:
+                print('Provide valid parameters')
 
 
 def main():
@@ -145,6 +199,22 @@ def main():
     guard_pattern_matching([205, 255, 255, 1])
     guard_pattern_matching([205, 255, 255, 0.5])
     guard_pattern_matching([205, 255, 255, 0.5, 0.5])
+    print(' Irrefutable case blocks '.center(80, '-').title())
+    irrefutable_case_blocks_with_wildcard('move up')
+    irrefutable_case_blocks_with_wildcard('move down')
+    irrefutable_case_blocks_with_wildcard('move left')
+    irrefutable_case_blocks_with_wildcard('move right')
+    irrefutable_case_blocks_with_wildcard('move fast')
+    irrefutable_case_blocks_with_wildcard('move slow')
+    irrefutable_case_blocks_with_wildcard('move fast fast')
+    irrefutable_case_blocks_with_wildcard('move slow slow')
+    irrefutable_case_blocks_with_wildcard('move fast fast fast')
+    irrefutable_case_blocks_with_wildcard('move slow slow slow')
+    print(' Matching patterns in classes '.center(80, '-').title())
+    ServiceLevel('free', 'info').get_service_level()
+    ServiceLevel('free', 'error').get_service_level()
+    ServiceLevel('premium', 'error').get_service_level()
+    ServiceLevel('premium', 'info').get_service_level()
 
 
 if __name__ == '__main__':
