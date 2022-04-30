@@ -40,7 +40,6 @@ que será chamada pelo programa principal.
 
 Recursos adicionais: opcionalmente, desenvolva as seguintes funcionalidades:
     * Mostrar apenas os 'n' primeiros em uso, definido pelo usuário.
-
 """
 from tests.loguru_conf import logger
 
@@ -48,48 +47,79 @@ from tests.loguru_conf import logger
 class RelatorioControleCotasDisco:
     """Relatório de controle de cotas de disco."""
 
-    def __init__(self, nome_arquivo, n_primeiros_usuarios):
-        """Método construtor."""
-        self.MEGABYTE = 1_048_576
+    def __init__(self, nome_arquivo: str, n_primeiros_usuarios: int) -> None:
+        """Método construtor.
+
+        :param nome_arquivo: nome do arquivo de entrada
+        :param n_primeiros_usuarios: número de usuários a serem mostrados
+        """
+        self.MEGABYTE = 1_048_576  # 1 megabyte
         self.nome_arquivo = nome_arquivo
         self.n_primeiros_usuarios = n_primeiros_usuarios
-        self.espaco_ocupado = 2581.57
+        self.espaco_total_ocupado = 0
         self.dados = []
         self.ler_arquivo()
         self.ordenar_dados()
         self.gerar_relatorio()
 
-    def ler_arquivo(self):
-        """Ler arquivo."""
+    def ler_arquivo(self) -> None:
+        """Ler arquivo.
+
+        Lê o arquivo de entrada e armazena os dados em memória.
+
+        Formato dos dados: [login, espaco_ocupado, percentual_ocupado]
+        """
         with open(self.nome_arquivo, 'r', encoding='utf-8') as arquivo:
             for linha in arquivo:
                 linha = linha.strip().split()
-                bytes_convertido = self.converter_bytes_megabytes(
-                    int(linha[1])
+                login = linha[0]
+                espaco_ocupado = round(
+                    self.converter_bytes_megabytes(int(linha[1])), 2
                 )
-                porcentagem_uso = self.calcular_porcentagem_uso(
-                    self.espaco_ocupado, bytes_convertido
+                self.dados.append([login, espaco_ocupado])
+                self.espaco_total_ocupado += int(linha[1])
+            self.espaco_total_ocupado = round(
+                self.converter_bytes_megabytes(self.espaco_total_ocupado), 2
+            )
+            # Adiciona a porcentagem do uso ao final da lista
+            for dado in self.dados:
+                dado.append(
+                    round(
+                        self.calcular_porcentagem_uso(
+                            self.espaco_total_ocupado, dado[1]
+                        ),
+                        2,
+                    )
                 )
-                self.dados.append(
-                    [linha[0], bytes_convertido, porcentagem_uso])
-        logger.info(f'Lido arquivo {self.nome_arquivo}')
         logger.info(f'Dados lidos: {self.dados}')
 
-    def ordenar_dados(self):
+    def ordenar_dados(self) -> None:
         """Ordenar dados."""
         self.dados.sort(key=lambda x: int(x[1]), reverse=True)
         logger.info(f'Dados ordenados: {self.dados}')
 
-    @staticmethod
-    def converter_bytes_megabytes(bytes_):
-        """Converter bytes para megabytes."""
-        MEGABYTE = 1_048_576
-        return round(bytes_ / MEGABYTE, 2)
+    def converter_bytes_megabytes(self, bytes_) -> float:
+        """Converter bytes para megabytes.
+
+        :param bytes_: quantidade de bytes
+        :type bytes_: int
+        :return: megabytes convertidos
+        :rtype: float
+        """
+        return bytes_ / self.MEGABYTE
 
     @staticmethod
-    def calcular_porcentagem_uso(bytes_, uso_):
-        """Calcular percentual de uso."""
-        return round(uso_ / bytes_ * 100, 2)
+    def calcular_porcentagem_uso(espaco_total, espaco_ocupado) -> float:
+        """Calcular porcentagem de uso.
+
+        :param espaco_total: espaço total ocupado pelos usuários
+        :type espaco_total: float
+        :param espaco_ocupado: espaço ocupado pelo usuário
+        :type espaco_ocupado: float
+        :return: porcentagem de uso do usuário
+        :rtype: float
+        """
+        return (espaco_ocupado / espaco_total) * 100
 
     def gerar_relatorio(self):
         """Gerar relatório."""
@@ -101,32 +131,36 @@ class RelatorioControleCotasDisco:
             )
             for i, linha in enumerate(self.dados):
                 if i < self.n_primeiros_usuarios:
-                    nome = linha[0].ljust(10)
+                    login = linha[0].ljust(10)
                     espaco_utilizado = str(linha[1]).rjust(12)
                     percentual_uso = str(linha[2]).rjust(6)
                     arquivo.write(
-                        f'{i + 1} - {nome}\t'
+                        f'{i + 1} - {login}\t'
                         f'{espaco_utilizado} MB\t\t'
                         f'{percentual_uso} %\n'
                     )
             arquivo.write(
-                f'\nEspaço total ocupado: {self.espaco_ocupado} MB\n'
-                f'Espaço médio ocupado: {round(self.espaco_ocupado / len(self.dados), 2)} MB\n'
+                f'\nEspaço total ocupado: {self.espaco_total_ocupado} MB\n'
+                f'Espaço médio ocupado: '
+                f'{round(self.espaco_total_ocupado / len(self.dados), 2)} MB\n'
             )
 
-    def mostrar_relatorio(self):
+    @staticmethod
+    def mostrar_relatorio():
         """Mostrar relatório."""
         with open('relatorio.txt', 'r', encoding='utf-8') as arquivo:
             print(arquivo.read())
 
     def __str__(self):
         """String do objeto."""
-        return f'Relatório de controle de cotas de disco.\n' \
-               f'Nome do arquivo: {self.nome_arquivo}\n' \
-               f'Número de usuários: {self.n_primeiros_usuarios}\n' \
-               f'Espaço ocupado: {self.espaco_ocupado} MB\n' \
-               f'Dados ordenados: {self.dados}\n' \
-               f'Relatório gerado: relatorio.txt'
+        return (
+            f'Relatório de controle de cotas de disco.\n'
+            f'Nome do arquivo: {self.nome_arquivo}\n'
+            f'Número de usuários: {self.n_primeiros_usuarios}\n'
+            f'Espaço ocupado: {self.espaco_total_ocupado} MB\n'
+            f'Dados ordenados: {self.dados}\n'
+            f'Relatório gerado: relatorio.txt'
+        )
 
     def __repr__(self):
         """Representação da classe."""
