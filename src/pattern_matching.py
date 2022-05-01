@@ -38,38 +38,37 @@ def http_error(status_code):
 
 def pattern_matching_not_literal(collection_values):
     """Pattern matching not literal."""
-
     match collection_values:
         case [1, 2, 3]:
-            print(collection_values, f':pattern: [1, 2, 3]')
+            print(collection_values, ':pattern: [1, 2, 3]')
             print('collection of 3 elements with 1, 2 and 3; in this order',
                   end='\n\n')
         case [1, _, _]:  # _ is a wildcard
-            print(collection_values, f':pattern: [1, _, _]')
+            print(collection_values, ':pattern: [1, _, _]')
             print('1 has to be the first element of the collection, '
                   'other elements can be anything', end='\n\n')
         case [_, 2, _]:
-            print(collection_values, f':pattern: [_, 2, _]')
+            print(collection_values, ':pattern: [_, 2, _]')
             print('2 must be the second element of the collection, '
                   'other elements can be anything', end='\n\n')
         case [] | [_]:  # | is the union operator
-            print(collection_values, f':pattern: [] | [_]')
+            print(collection_values, ':pattern: [] | [_]')
             print('empty collection or collection with one element',
                   end='\n\n')
         case [5 | 6, _, _]:  # | is the union operator
-            print(collection_values, f':pattern: [5 | 6, _, _]')
+            print(collection_values, ':pattern: [5 | 6, _, _]')
             print('5 or 6 must be the first element of the collection, '
                   'other elements can be anything', end='\n\n')
         case [1, 2]:
-            print(collection_values, f':pattern: [1, 2]')
+            print(collection_values, ':pattern: [1, 2]')
             print('collection with elements 1 and 2, in that order',
                   end='\n\n')
         case [1, *_]:  # * is the splat operator
-            print(collection_values, f':pattern: [1, *_]')
+            print(collection_values, ':pattern: [1, *_]')
             print('collection with first element 1 and '
                   'any other element(s)', end='\n\n')
         case (7, *rest):  # * is the splat operator
-            print(collection_values, f':pattern: (7, *rest)')
+            print(collection_values, ':pattern: (7, *rest)')
             print(f'collection with the first element 7 and '
                   f'the rest of the elements {rest=}', end='\n\n')
         case _:  # default
@@ -94,7 +93,7 @@ def guard_pattern_matching(color):
     """Guard pattern matching."""
     match color:
         case r, g, b:
-            print(f'Where is the alpha channel?')
+            print('Where is the alpha channel?')
             print(f'r={r}, g={g}, b={b}', end='\n\n')
         case r, g, b, a if r == 0 and g == 0 and b == 0:
             print(f'Black: {r}, {g}, {b}, {a}', end='\n\n')
@@ -133,11 +132,14 @@ def irrefutable_case_blocks_with_wildcard(action):
 
 
 class ServiceLevel:
+    """Service level."""
     def __init__(self, subscription, msg_type):
+        """Initialize."""
         self.subscription = subscription
         self.msg_type = msg_type
 
     def get_service_level(self):
+        """Get service level."""
         match self:
             case ServiceLevel(subscription=_, msg_type='info'):
                 print(

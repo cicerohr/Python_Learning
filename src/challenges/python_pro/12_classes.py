@@ -2,7 +2,6 @@
 r"""12_classes.py in: 2022-04-27.
 
 Python version: 3.10.0
-
 """
 from tests.loguru_conf import logger
 
@@ -145,7 +144,7 @@ class Pessoa:
     """
 
     def __init__(
-            self, nome: str, idade: int, peso: float, altura: float
+        self, nome: str, idade: int, peso: float, altura: float
     ) -> None:
         """Inicialização da classe.
 
