@@ -40,8 +40,9 @@ performance of algorithms.
 
 ### Challenges
 
-* Folder with codes for solving challenges
+* Folder with challenge codes solved by me
     * [Python Pro](src/challenges/python_pro)
+    * [Python Principles](src/challenges/python_principles)
 
 [🔝](#python-studies)
 
