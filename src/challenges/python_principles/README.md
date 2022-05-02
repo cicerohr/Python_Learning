@@ -2,6 +2,17 @@
 
 Desafio do site [Python Principles](https://pythonprinciples.com/challenges/).
 
+---
+
+<p align="center">
+<a href="#conteúdo">Conteúdo</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#referências">Referências</a>
+</p>
+
+---
+
+## Conteúdo
+
 * [Capital indexes](capital_indexes.py)
 * [Middle letter](middle_letter.py)
 * [Online status](online_status.py)
@@ -26,3 +37,12 @@ Desafio do site [Python Principles](https://pythonprinciples.com/challenges/).
 * [List xor](list_xor.py)
 * [Counting parameters](counting_parameters.py)
 * [Thousands separator](thousands_separator.py)
+
+[🔝](#python-principles)
+
+## Referências
+
+* [Python Principles](https://pythonprinciples.com/challenges/)
+* [Python 3.10.4 documentation](https://docs.python.org/3/library/)
+
+[🔝](#python-principles)
