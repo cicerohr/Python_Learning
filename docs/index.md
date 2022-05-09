@@ -13,6 +13,10 @@ performance of algorithms.
     * [Algorithms performance test.](#algorithms-performance-test)
 * Selection Sort
     * [Selection sort algorithm.](#selection-sort-algorithm)
+
+* Game theory
+    * [Minimax algorithm.](#minimax-algorithm)
+
 * Pattern Matching
     * [Pattern matching statement.](#pattern-matching-statement)
 * Challenges
@@ -203,6 +207,13 @@ Code:
                 minimum = j
         the_list[i], the_list[minimum] = the_list[minimum], the_list[i]
     return the_list
+
+[🔝](#studies)
+
+## Game theory
+
+### [Minimax algorithm.](../src/minimax.py)
+
 
 [🔝](#studies)
 
