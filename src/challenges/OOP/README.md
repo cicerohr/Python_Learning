@@ -19,6 +19,7 @@
 ## Referências
 
 * [Código do Estagiário](https://www.youtube.com/watch?v=cTeR3ATHpZo)
+* [Princípios de Algoritmos e Estruturas de Dados Usando Python](https://panda.ime.usp.br/algoritmos/static/algoritmos/index.html)
 
 
 [🔝](#estudo-de-programao-orientada-a-objetos)
