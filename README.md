@@ -10,6 +10,7 @@ performance of algorithms.
 <a href="#sorted-list-search">Sorted List Search</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#selection-sort">Selection Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#pattern-matching-statement">Pattern Matching</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#minimax-algorithm">Minimax Algorithm</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#challenges">Challenges</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#documentation">Documentation</a>&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
@@ -38,11 +39,20 @@ performance of algorithms.
 
 [🔝](#python-studies)
 
+### Minimax Algorithm
+
+* [code](src/minimax.py)
+    * Minimax algorithm.
+
+[🔝](#python-studies)
+
 ### Challenges
 
 * Folder with challenge codes solved by me
     * [Python Pro](src/challenges/python_pro)
     * [Python Principles](src/challenges/python_principles)
+    * [FreeCodeCamp](src/challenges/free_code_camp)
+    * [Tkinter](src/challenges/tkinter)
 
 [🔝](#python-studies)
 

@@ -1,0 +1,57 @@
+{
+  "alfinete": {
+    "nome": "alfinete",
+    "sem acentos": "alfinete",
+    "dica": "Usado em costuras"
+  },
+  "vassoura": {
+    "nome": "vassoura",
+    "sem acentos": "vassoura",
+    "dica": "Usado para limpeza"
+  },
+  "lâmpada": {
+    "nome": "lâmpada",
+    "sem acentos": "lampada",
+    "dica": "Dispositivo elétrico"
+  },
+  "cadeira": {
+    "nome": "cadeira",
+    "sem acentos": "cadeira",
+    "dica": "usado em vários cômodos da casa"
+  },
+  "microfone": {
+    "nome": "microfone",
+    "sem acentos": "microfone",
+    "dica": "usado na indústria da música"
+  },
+  "avião": {
+    "nome": "avião",
+    "sem acentos": "aviao",
+    "dica": "meio de transporte"
+  },
+  "celular": {
+    "nome": "celular",
+    "sem acentos": "celular",
+    "dica": "dispositivo eletrônico"
+  },
+  "panela": {
+    "nome": "panela",
+    "sem acentos": "panela",
+    "dica": "utensílio de cozinha"
+  },
+  "baleia": {
+    "nome": "baleia",
+    "sem acentos": "baleia",
+    "dica": "animal marinho"
+  },
+  "avestruz": {
+    "nome": "avestruz",
+    "sem acentos": "avestruz",
+    "dica": "ave"
+  },
+  "júpiter": {
+    "nome": "júpiter",
+    "sem acentos": "jupiter",
+    "dica": "nome de um deus"
+  }
+}

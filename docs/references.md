@@ -5,6 +5,12 @@
 - [Binary search algorithm][1] (Wikipedia)
 - [Interpolation search][2] (Wikipedia)
 
+### Algorithms
+
+- [Minimax algorithm][14] (Wikipedia)
+  - [Acervo Lima][15] (Site)
+  - [GeeksforGeeks][16] (Site)
+
 #### Structural Pattern Matching
 - [PEP 634][10] (Structural Pattern Matching: Specification)
 - [PEP 635][13] (Structural Pattern Matching: Motivation and Rationale)
@@ -46,3 +52,9 @@
 [12]: <https://peps.python.org/pep-0636/> 'Tutorial'
 
 [13]: <https://peps.python.org/pep-0635/> 'Motivation and Rationale'
+
+[14]: <https://en.wikipedia.org/wiki/Minimax> 'Minimax algorithm'
+
+[15]: <https://duckduckgo.com/?q=site%3Ahttps%3A%2F%2Facervolima.com+%22Algoritmo+Minimax+na+teoria+dos+jogos%22&t=ffab&ia=web> 'Acervo Lima'
+
+[16]: <https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-2-evaluation-function/> 'Algoritmos de minimax'
