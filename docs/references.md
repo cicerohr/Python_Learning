@@ -1,23 +1,28 @@
 # References
 
-#### Sorted List Search
+## Sorted List Search
 
 - [Binary search algorithm][1] (Wikipedia)
 - [Interpolation search][2] (Wikipedia)
 
-### Algorithms
+## Algorithms
 
 - [Minimax algorithm][14] (Wikipedia)
   - [Acervo Lima][15] (Site)
   - [GeeksforGeeks][16] (Site)
 
-#### Structural Pattern Matching
+## OPP
+
+- [Pong Game][17] (YouTube)
+- [Princípios de Algoritmos e Estruturas de Dados Usando Python][18] (Site)
+
+## Structural Pattern Matching
 - [PEP 634][10] (Structural Pattern Matching: Specification)
 - [PEP 635][13] (Structural Pattern Matching: Motivation and Rationale)
 - [PEP 636][12] (Structural Pattern Matching: Tutorial)
 - [Eduardo Mendes][11] (Live on YouTube) 
 
-#### Tools
+## Tools
 
 - [Pycharm][4] - IDE for Python
 - [Blue][3] - Code formatter for Python
@@ -58,3 +63,7 @@
 [15]: <https://duckduckgo.com/?q=site%3Ahttps%3A%2F%2Facervolima.com+%22Algoritmo+Minimax+na+teoria+dos+jogos%22&t=ffab&ia=web> 'Acervo Lima'
 
 [16]: <https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-2-evaluation-function/> 'Algoritmos de minimax'
+
+[17]: <https://www.youtube.com/watch?v=cTeR3ATHpZo> 'Pong Game'
+
+[18]: <https://panda.ime.usp.br/algoritmos/static/algoritmos/index.html> 'Princípios de Algoritmos e Estruturas de Dados Usando Python'
