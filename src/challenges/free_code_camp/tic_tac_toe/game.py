@@ -88,13 +88,13 @@ def play(game, x_player, o_player, print_game=True):
         if game.make_move(square, letter):
 
             if print_game:
-                print(letter + ' makes a move to square {}'.format(square))
+                print(f'{letter} makes a move to square {square}')
                 game.print_board()
                 print('')
 
             if game.current_winner:
                 if print_game:
-                    print(letter + ' wins!')
+                    print(f'{letter} wins!')
                 return letter  # ends the loop and exits the game
             letter = 'O' if letter == 'X' else 'X'  # switches player
 
