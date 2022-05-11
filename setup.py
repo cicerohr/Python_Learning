@@ -9,6 +9,7 @@ def read(file_name):
 
 setup(
     name='Python Learning',
+    python_requires='>=3.10',
     version='',
     packages=[''],
     url='',
@@ -16,7 +17,7 @@ setup(
     author='CHR',
     author_email='your_email@domain.com',
     description='The objective of this project is to create programs for '
-    'learning the Python programming language, as well as the use '
-    'of libraries to improve the performance of algorithms.',
+                'learning the Python programming language, as well as the use '
+                'of libraries to improve the performance of algorithms.',
     long_description=read('README.md'),
 )
