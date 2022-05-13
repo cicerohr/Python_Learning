@@ -108,7 +108,7 @@ class Triangulo(Poligono):
         """Construtor da classe Triangulo."""
         self.nome = 'Triângulo'
         # chama o construtor da classe pai (Polígono)
-        Poligono.__init__(self, self.nome, 3)
+        super().__init__(self.nome, 3)
 
     def eh_triangulo(self) -> bool:
         """Verifica se os lados formam um triângulo.
@@ -181,7 +181,7 @@ class TrianguloRetangulo(Triangulo):
     def __init__(self):
         """Construtor da classe TrianguloRetangulo."""
         # chama o construtor da classe pai (Triangulo)
-        Triangulo.__init__(self)
+        super().__init__()
         self.nome = 'Triângulo Retângulo'
 
     def eh_triangulo_retangulo(self) -> bool:
@@ -231,7 +231,7 @@ class Retangulo(Poligono):
         """Construtor da classe Retangulo."""
         self.nome = 'Retângulo'
         # chama o construtor da classe pai (Polígono)
-        Poligono.__init__(self, self.nome, 4)
+        super().__init__(self.nome, 4)
 
     def obter_lados(self):
         """Obtém os valores dos lados do retângulo."""
