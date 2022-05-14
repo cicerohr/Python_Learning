@@ -5,10 +5,12 @@ r"""heranca.py in: 2022-05-11.
 @modified by: Cícero
 @link: https://gitlab.com/ccsl-usp/LabPOO/-/blob/master/heranca/poligono.py
 """
+from abc import ABC, abstractmethod
+
 from tests.loguru_conf import logger
 
 
-class Poligono:
+class Poligono(ABC):
     """Classe abstrata base para um polígono.
 
     Atributos:
@@ -48,13 +50,14 @@ class Poligono:
         """
         return len(set(self.lados)) == 1
 
-    def obter_lados(self):
+    def obter_lados(self) -> None:
         """Obtém os valores dos lados do polígono."""
         self.lados = [
             float(input(f'{self.nome} - Lado {str(i + 1)}: '))
             for i in range(self.numero_de_lados)
         ]
 
+    @abstractmethod
     def calcular_area(self) -> float:
         """Calcula a área do polígono.
 
@@ -64,7 +67,9 @@ class Poligono:
         :return: área do polígono.
         :rtype: float.
         """
-        raise NotImplementedError
+        raise NotImplementedError(
+            'Subclasses precisam implementar o método ' 'calcular_area()'
+        )
 
     def calcular_perimetro(self) -> float:
         """Calcula o perímetro de um polígono.
@@ -85,7 +90,8 @@ class Poligono:
     def __repr__(self) -> str:
         """Representação do objeto."""
         return (
-            f'<{self.__class__.__name__}> {self.__class__.__doc__}\n'
+            f'{self.__class__.__name__}()\n'
+            f'{self.__class__.__doc__}\n'
             f'{self.__class__.__module__} {self.__dict__}\n'
         )
 
@@ -104,7 +110,7 @@ class Triangulo(Poligono):
         __str__(): retorna uma ‘string’ com os dados do triângulo.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Construtor da classe Triangulo."""
         self.nome = 'Triângulo'
         # chama o construtor da classe pai (Polígono)
@@ -112,8 +118,6 @@ class Triangulo(Poligono):
 
     def eh_triangulo(self) -> bool:
         """Verifica se os lados formam um triângulo.
-
-        Retorna True se os lados formam um triângulo e False se não.
 
         :return: True se os lados formam um triângulo e False se não.
         :rtype: bool
@@ -149,8 +153,7 @@ class Triangulo(Poligono):
         a, b, c = self.lados
         # calcula o semiperímetro
         p = (a + b + c) / 2
-        area = (p * (p - a) * (p - b) * (p - c)) ** 0.5
-        return area
+        return (p * (p - a) * (p - b) * (p - c)) ** 0.5
 
     def __str__(self) -> str:
         """Retorna uma ‘string’ com os dados do triângulo."""
@@ -178,7 +181,7 @@ class TrianguloRetangulo(Triangulo):
         __str__(): retorna uma ‘string’ com os dados do triângulo retângulo.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Construtor da classe TrianguloRetangulo."""
         # chama o construtor da classe pai (Triangulo)
         super().__init__()
@@ -227,7 +230,7 @@ class Retangulo(Poligono):
         __str__(): retorna uma ‘string’ com os dados do retângulo.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Construtor da classe Retangulo."""
         self.nome = 'Retângulo'
         # chama o construtor da classe pai (Polígono)
@@ -269,22 +272,104 @@ class Retangulo(Poligono):
         )
 
 
+class Trapezio(Poligono):
+    """Classe que representa um trapézio.
+
+    Atributos:
+        nome (str): nome do polígono.
+
+    Métodos:
+        __init__(): construtor da classe.
+        obter_lados(): obtém os valores dos lados do trapézio.
+        calcular_area(): calcula a área do trapézio.
+        calcular_altura(): calcula a altura do trapézio.
+        __str__(): retorna uma ‘string’ com os dados do trapézio.
+    """
+
+    def __init__(self) -> None:
+        """Construtor da classe Trapezio."""
+        self.nome = 'Trapézio'
+        # chama o construtor da classe pai (Polígono)
+        super().__init__(self.nome, 4)
+
+    def obter_lados(self) -> None:
+        """Obtém os valores dos lados do trapézio."""
+        base_maior = float(input(f'{self.nome} - Base maior: '))
+        base_menor = float(input(f'{self.nome} - Base menor: '))
+        lado1 = float(input(f'{self.nome} - Lado 1: '))
+        lado2 = float(input(f'{self.nome} - Lado 2: '))
+        self.lados = [base_maior, base_menor, lado1, lado2]
+
+    def calcular_area(self) -> float:
+        """Calcula a área do trapézio.
+
+        Utiliza a fórmula de Heron para calcular a área.
+
+        :return: área do trapézio.
+        :rtype: float
+        """
+        base_maior = self.lados[0]
+        base_menor = self.lados[1]
+        lado1 = self.lados[2]
+        lado2 = self.lados[3]
+        semiperimetro = (base_maior + base_menor + lado1 + lado2) / 2
+        return (
+                       semiperimetro
+                       * (semiperimetro - base_maior)
+                       * (semiperimetro - base_menor)
+                       * (semiperimetro - lado1)
+                       * (semiperimetro - lado2)
+               ) ** 0.5
+
+    def altura(self) -> float:
+        """Calcula a altura do trapézio.
+
+        A partir da área do trapézio e das bases, calcula a altura.
+
+        A = h * (B + b) / 2 ∴ h = 2 * A / (B + b)
+
+        :return: altura do trapézio.
+        :rtype: float
+        """
+        return (self.calcular_area() * 2) / (self.lados[0] + self.lados[1])
+
+    def __str__(self) -> str:
+        """Retorna uma ‘string’ com os dados do trapézio.
+
+        :return: dados do trapézio.
+        :rtype: str
+        """
+        return (
+            f'{self.nome} - base maior: {self.lados[0]}; '
+            f'base menor: {self.lados[1]}; '
+            f'lado 1: {self.lados[2]}; '
+            f'lado 2: {self.lados[3]}\n'
+            f'\tÁrea: {self.calcular_area():.2f}\n'
+            f'\tPerímetro: {self.calcular_perimetro():.2f}\n'
+            f'\tNúmero de diagonais: {self.numero_de_diagonais()}\n'
+            f'\tAltura: {self.altura():.2f}\n'
+            f'\tÉ regular? {"sim" if self.eh_regular() else "não"}\n'
+        )
+
+
 def main():
     """Função principal."""
-    retangulo = Retangulo()
-    retangulo.obter_lados()
-    print(retangulo)
-    print(repr(retangulo))
-    triangulo = Triangulo()
-    triangulo.obter_lados()
-    print(triangulo)
-    print(repr(triangulo))
-    triangulo_retangulo = TrianguloRetangulo()
-    triangulo_retangulo.obter_lados()
-    print(triangulo_retangulo)
-    print(repr(triangulo_retangulo))
-    poligono = Poligono('Polígono', 3)
-    print(poligono)
+    # retangulo = Retangulo()
+    # retangulo.obter_lados()
+    # print(retangulo)
+    # print(repr(retangulo))
+    # triangulo = Triangulo()
+    # triangulo.obter_lados()
+    # print(triangulo)
+    # print(repr(triangulo))
+    # triangulo_retangulo = TrianguloRetangulo()
+    # triangulo_retangulo.obter_lados()
+    # print(triangulo_retangulo)
+    # print(repr(triangulo_retangulo))
+    # trapezio = Trapezio()
+    # trapezio.obter_lados()
+    # print(trapezio)
+    # print(repr(trapezio))
 
 
 if __name__ == '__main__':
