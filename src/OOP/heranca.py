@@ -21,7 +21,7 @@ class Poligono(ABC):
     Métodos:
         __init__(self, nome, numero_de_lados): inicializa o objeto.
         eh_regular(): verifica se o polígono é regular.
-        obter_lados(): obtém os valores dos lados.
+        obter_lados(): obtém os valores dos lados (abstractmethod).
         calcular_area(): calcula a área do polígono.
         calcular_perimetro(): retorna o perímetro do polígono.
         numero_de_diagonais(): retorna o número de diagonais.
