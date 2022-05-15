@@ -68,7 +68,7 @@ class Poligono(ABC):
         :rtype: float.
         """
         raise NotImplementedError(
-            'Subclasses precisam implementar o método ' 'calcular_area()'
+            'Subclasses precisam implementar o método calcular_area()'
         )
 
     def calcular_perimetro(self) -> float:
