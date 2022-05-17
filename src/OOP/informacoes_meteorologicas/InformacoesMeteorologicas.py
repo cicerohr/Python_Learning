@@ -16,6 +16,7 @@ from typing import Final
 import requests
 from Conversores import Conversores
 from decouple import config
+
 from tests.loguru_conf import logger
 
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
@@ -268,6 +269,14 @@ def main() -> None:
     sunrise.obter_informacoes()
     print(sunrise.nascer_do_sol)
     print(sunrise.fuso_horario)
+    data_london = InformacoesMeteorologicas('Londres')
+    print(data_london.obter_informacoes())
+    data_montevideo = InformacoesMeteorologicas('Montevideo')
+    print(data_montevideo.obter_informacoes())
+    data_sao_paulo = InformacoesMeteorologicas('São Paulo')
+    print(data_sao_paulo.obter_informacoes())
+    data_sao_jose_dos_campos = InformacoesMeteorologicas('São José dos Campos')
+    print(data_sao_jose_dos_campos.obter_informacoes())
 
 
 if __name__ == '__main__':
