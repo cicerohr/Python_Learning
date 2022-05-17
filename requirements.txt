@@ -1,5 +1,5 @@
 loguru~=0.6.0
-setuptools~=62.2.0
+setuptools==62.3.1
 qrcode~=7.3.1
 future~=0.18.2
 Pillow~=9.1.0
