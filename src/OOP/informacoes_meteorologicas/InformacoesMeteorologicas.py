@@ -14,8 +14,9 @@ from datetime import datetime
 from typing import Final
 
 import requests
+from Conversores import Conversores
 from decouple import config
-from unicodedata import normalize
+from tests.loguru_conf import logger
 
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
@@ -24,72 +25,6 @@ URL: Final[str] = (
     f'http://api.openweathermap.org/data/2.5/weather?'
     f'&appid={API_KEY}&lang=pt_br&units=metric'
 )
-
-
-class Conversores:
-    r"""Classe para conversões de dados.
-
-    Conversor da direção do vento de graus para direção cardinal.
-
-    Conversor de palavras acentuadas para palavras sem acentos.
-    """
-
-    @staticmethod
-    def direcao_vento_cardinal(direcao_vento_graus: int) -> str:
-        r"""Converte a direção do vento de graus para direção cardinal.
-
-        :param direcao_vento_graus: direção do vento em graus.
-        :type direcao_vento_graus: int.
-        :return: direção do vento em direção cardinal.
-        :rtype: str.
-        """
-        if 348.75 <= direcao_vento_graus <= 11.25:
-            return 'Norte'
-        if 11.25 <= direcao_vento_graus <= 33.75:
-            return 'Nordeste'
-        if 33.75 <= direcao_vento_graus <= 56.25:
-            return 'Leste'
-        if 56.25 <= direcao_vento_graus <= 78.75:
-            return 'Sudeste'
-        if 78.75 <= direcao_vento_graus <= 101.25:
-            return 'Sul'
-        if 101.25 <= direcao_vento_graus <= 123.75:
-            return 'Sudoeste'
-        if 123.75 <= direcao_vento_graus <= 146.25:
-            return 'Oeste'
-        if 146.25 <= direcao_vento_graus <= 168.75:
-            return 'Noroeste'
-        if 168.75 <= direcao_vento_graus <= 191.25:
-            return 'Norte'
-        if 191.25 <= direcao_vento_graus <= 213.75:
-            return 'Nordeste'
-        if 213.75 <= direcao_vento_graus <= 236.25:
-            return 'Leste'
-        if 236.25 <= direcao_vento_graus <= 258.75:
-            return 'Sudeste'
-        if 258.75 <= direcao_vento_graus <= 281.25:
-            return 'Sul'
-        if 281.25 <= direcao_vento_graus <= 303.75:
-            return 'Sudoeste'
-        if 303.75 <= direcao_vento_graus <= 326.25:
-            return 'Oeste'
-        if 326.25 <= direcao_vento_graus <= 348.75:
-            return 'Noroeste'
-
-    @staticmethod
-    def palavra_acentuada_n_acentuada(palavra_acentuada: str) -> str:
-        r"""Converte palavras acentuadas para palavras sem acentuação.
-
-        :param palavra_acentuada: palavra com acento.
-        :type palavra_acentuada: str.
-        :return: palavra sem acento.
-        :rtype: str.
-        """
-        return (
-            normalize('NFKD', palavra_acentuada)
-            .encode('ASCII', 'ignore')
-            .decode('ASCII')
-        )
 
 
 class InformacoesMeteorologicas(Conversores):
@@ -175,39 +110,41 @@ class InformacoesMeteorologicas(Conversores):
 
     @property
     def data_hora(self) -> datetime:
-        """Obtém a data e hora.
+        """Obtém a data e hora em segundos unix, UTC.
 
-        :return: data e hora.
+        Unix é o número de segundos desde 1970-01-01 00:00:00 UTC.
+
+        :return: data e hora em ano, mês, dia, hora, minuto e segundo.
         :rtype: datetime
         """
         return datetime.fromtimestamp(self.info['dt'])
 
     @property
     def velocidade_vento(self) -> float:
-        """Obtém a velocidade do vento.
+        """Obtém a velocidade do vento em m/s.
 
-        :return: velocidade do vento.
+        :return: velocidade do vento em km/h.
         :rtype: float
         """
-        return self.info['wind']['speed']
+        return self.info['wind']['speed'] * 3.6  # m/s -> km/h
 
     @property
     def direcao_vento(self) -> str:
-        """Obtém a direção do vento.
+        """Obtém a direção do vento em graus.
 
-        :return: direção do vento.
+        :return: direção do vento em direção cardinal.
         :rtype: str
         """
         return self.direcao_vento_cardinal(self.info['wind']['deg'])
 
     @property
     def rajada_vento(self) -> float:
-        """Obtém a rajada do vento.
+        """Obtém a rajada do vento em m/s.
 
-        :return: rajada do vento.
+        :return: rajada do vento em km/h.
         :rtype: float
         """
-        return self.info['wind']['gust']
+        return self.info['wind']['gust'] * 3.6  # m/s -> km/h
 
     @property
     def nome(self) -> str:
@@ -229,12 +166,21 @@ class InformacoesMeteorologicas(Conversores):
 
     @property
     def fuso_horario(self) -> float:
-        """Obtém o fuso horário.
+        """Obtém o fuso horário em segundos unix, UTC.
 
-        :return: fuso horário.
+        Unix timestamp é o número de segundos desde 1 de janeiro de 1970 até a
+        data e hora especificada.
+
+        :return: fuso horário em horas.
         :rtype: float
         """
-        return datetime.fromtimestamp(self.info['dt']).astimezone().utcoffset().total_seconds() / 3600
+        return (
+            datetime.fromtimestamp(self.info['dt'])
+            .astimezone()
+            .utcoffset()
+            .total_seconds()
+            / 3600  # segundos -> horas
+        )
 
     @property
     def latitude(self) -> float:
@@ -261,22 +207,22 @@ class InformacoesMeteorologicas(Conversores):
         :return: visibilidade.
         :rtype: int
         """
-        return self.info['visibility'] // 1000
+        return self.info['visibility'] // 1000  # m -> km
 
     @property
     def por_do_sol(self) -> datetime:
-        """Obtém a hora por do sol.
+        """Obtém a hora por do sol em segundos unix, UTC.
 
-        :return: por do sol.
+        :return: pôr do sol em ano, mês, dia, hora, minuto e segundo.
         :rtype: datetime
         """
         return datetime.fromtimestamp(self.info['sys']['sunset'])
 
     @property
     def nascer_do_sol(self) -> datetime:
-        """Obtém a hora nascer do sol.
+        """Obtém a hora nascer do sol em segundos unix, UTC.
 
-        :return: nascer do sol.
+        :return: nascer do sol em ano, mês, dia, hora, minuto e segundo.
         :rtype: datetime
         """
         return datetime.fromtimestamp(self.info['sys']['sunrise'])
@@ -290,7 +236,8 @@ class InformacoesMeteorologicas(Conversores):
         return (
             f' {self.nome}/{self.pais} - '
             f'{self.data_hora} '.center(61, '=') + '\n'
-            f'Latitude: {self.latitude} | Longitude: {self.longitude} | Fuso Horário: {self.fuso_horario}\n'
+            f'Latitude: {self.latitude} | Longitude: {self.longitude} | '
+            f'Fuso Horário: {self.fuso_horario}\n'
             f'{"-" * 61}\n'
             f'Descrição: {self.descricao}\n'
             f'Temperatura: {self.temperatura:.1f}ºC\n'
@@ -298,9 +245,9 @@ class InformacoesMeteorologicas(Conversores):
             f'\t mínima: {self.temperatura_minima:.1f}ºC\n'
             f'Pressão: {self.pressao:} hPa\n'
             f'Umidade: {self.umidade:} %\n'
-            f'Vento: {self.velocidade_vento:.2f} m/s - '
+            f'Vento: {self.velocidade_vento:.2f} km/h - '
             f'{self.direcao_vento}\n'
-            f'\t rajada: {self.rajada_vento:.2f} m/s\n'
+            f'\t rajada: {self.rajada_vento:.2f} km/h\n'
             f'Visibilidade: {self.visibilidade} km\n'
             f'Nascer do sol: {self.nascer_do_sol.strftime("%H:%M")}\n'
             f'Pôr do sol: {self.por_do_sol.strftime("%H:%M")}\n'
@@ -313,3 +260,17 @@ class InformacoesMeteorologicas(Conversores):
             f'{self.__class__.__doc__}\n'
             f'{self.__class__.__module__} {self.__dict__}\n'
         )
+
+
+def main() -> None:
+    """Função principal."""
+    sunrise = InformacoesMeteorologicas('Montevideo')
+    sunrise.obter_informacoes()
+    print(sunrise.nascer_do_sol)
+    print(sunrise.fuso_horario)
+
+
+if __name__ == '__main__':
+    logger.info('Início do programa.')
+    main()
+    logger.info('Fim do programa.')
