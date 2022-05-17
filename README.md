@@ -52,7 +52,7 @@ performance of algorithms.
     * [Python Pro](src/challenges/python_pro)
     * [Python Principles](src/challenges/python_principles)
     * [FreeCodeCamp](src/challenges/free_code_camp)
-    * [Tkinter](src/challenges/tkinter)
+    * [Tkinter](src/tkinter)
 
 [🔝](#python-studies)
 

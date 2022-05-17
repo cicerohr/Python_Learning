@@ -1,6 +1,8 @@
 loguru~=0.6.0
-setuptools~=62.1.0
+setuptools~=62.2.0
 qrcode~=7.3.1
 future~=0.18.2
 Pillow~=9.1.0
 pyzbar~=0.1.9
+requests~=2.27.1
+python-decouple==3.6
