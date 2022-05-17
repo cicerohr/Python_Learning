@@ -15,184 +15,301 @@ from typing import Final
 
 import requests
 from decouple import config
+from unicodedata import normalize
 
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
-API_KEY: Final[str] = config('SECRET_KEY')
-URL = f'http://api.openweathermap.org/data/2.5/weather?&appid={API_KEY}&lang=pt_br&units=metric'
+API_KEY: Final[str] = config('SECRET_KEY')  # chave secreta no .env
+URL: Final[str] = (
+    f'http://api.openweathermap.org/data/2.5/weather?'
+    f'&appid={API_KEY}&lang=pt_br&units=metric'
+)
 
 
-class InformacoesMeteorologicas:
-    """Classe para informações meteorologicas."""
+class Conversores:
+    r"""Classe para conversões de dados.
+
+    Conversor da direção do vento de graus para direção cardinal.
+
+    Conversor de palavras acentuadas para palavras sem acentos.
+    """
+
+    @staticmethod
+    def direcao_vento_cardinal(direcao_vento_graus: int) -> str:
+        r"""Converte a direção do vento de graus para direção cardinal.
+
+        :param direcao_vento_graus: direção do vento em graus.
+        :type direcao_vento_graus: int.
+        :return: direção do vento em direção cardinal.
+        :rtype: str.
+        """
+        if 348.75 <= direcao_vento_graus <= 11.25:
+            return 'Norte'
+        if 11.25 <= direcao_vento_graus <= 33.75:
+            return 'Nordeste'
+        if 33.75 <= direcao_vento_graus <= 56.25:
+            return 'Leste'
+        if 56.25 <= direcao_vento_graus <= 78.75:
+            return 'Sudeste'
+        if 78.75 <= direcao_vento_graus <= 101.25:
+            return 'Sul'
+        if 101.25 <= direcao_vento_graus <= 123.75:
+            return 'Sudoeste'
+        if 123.75 <= direcao_vento_graus <= 146.25:
+            return 'Oeste'
+        if 146.25 <= direcao_vento_graus <= 168.75:
+            return 'Noroeste'
+        if 168.75 <= direcao_vento_graus <= 191.25:
+            return 'Norte'
+        if 191.25 <= direcao_vento_graus <= 213.75:
+            return 'Nordeste'
+        if 213.75 <= direcao_vento_graus <= 236.25:
+            return 'Leste'
+        if 236.25 <= direcao_vento_graus <= 258.75:
+            return 'Sudeste'
+        if 258.75 <= direcao_vento_graus <= 281.25:
+            return 'Sul'
+        if 281.25 <= direcao_vento_graus <= 303.75:
+            return 'Sudoeste'
+        if 303.75 <= direcao_vento_graus <= 326.25:
+            return 'Oeste'
+        if 326.25 <= direcao_vento_graus <= 348.75:
+            return 'Noroeste'
+
+    @staticmethod
+    def palavra_acentuada_n_acentuada(palavra_acentuada: str) -> str:
+        r"""Converte palavras acentuadas para palavras sem acentuação.
+
+        :param palavra_acentuada: palavra com acento.
+        :type palavra_acentuada: str.
+        :return: palavra sem acento.
+        :rtype: str.
+        """
+        return (
+            normalize('NFKD', palavra_acentuada)
+            .encode('ASCII', 'ignore')
+            .decode('ASCII')
+        )
+
+
+class InformacoesMeteorologicas(Conversores):
+    """Classe para obter informações meteorologicas.
+
+    A classe utiliza a API do OpenWeatherMap para obter informações
+    meteorologicas.
+    """
 
     def __init__(self, cidade: str) -> None:
         """Inicializa as informações meteorologicas.
 
-        Args:
-            cidade (str): Nome da cidade.
-
         :param cidade: cidade a ser pesquisada.
         :type cidade: str
         """
-        self.__cidade = cidade
-        # self.__api_key = config('SECRET_KEY')  # pega a chave secreta
-        # self.__url_base = f'http://api.openweathermap.org/data/2.5/weather?q=
-        # self.__url_final = (
-        #     f'{self.__url_base}{self.__cidade}'
-        #     f'&appid={API_KEY}&lang=pt_br&units=metric'
-        # )
-        self.__informacoes = self.__obter_informacoes()
+        super().__init__()
+        self.cidade = self.palavra_acentuada_n_acentuada(cidade)
+        self.info = self.obter_informacoes()
 
-    @property
-    def cidade(self):
-        """Retorna o nome da cidade."""
-        return self.__cidade
+    def obter_informacoes(self) -> dict:
+        """Obtém as informações meteorologicas da API.
 
-    @cidade.setter
-    def cidade(self, cidade: str):
-        """Define o nome da cidade."""
-        self.__cidade = cidade
-
-    @property
-    def pais(self):
-        """Retorna o nome do pais."""
-        return self.__informacoes['sys']['country']
-
-    @property
-    def latitude(self):
-        """Retorna a latitude."""
-        return self.__informacoes['coord']['lat']
-
-    @property
-    def longitude(self):
-        """Retorna a longitude."""
-        return self.__informacoes['coord']['lon']
-
-    @property
-    def temperatura(self):
-        """Retorna a temperatura."""
-        return self.__informacoes['main']['temp']
-
-    @property
-    def temperatura_maxima(self):
-        """Retorna a temperatura maxima."""
-        return self.__informacoes['main']['temp_max']
-
-    @property
-    def temperatura_minima(self):
-        """Retorna a temperatura minima."""
-        return self.__informacoes['main']['temp_min']
-
-    @property
-    def pressao(self):
-        """Retorna a pressao."""
-        return self.__informacoes['main']['pressure']
-
-    @property
-    def umidade(self):
-        """Retorna a umidade."""
-        return self.__informacoes['main']['humidity']
-
-    @property
-    def visibilidade(self):
-        """Retorna a visibilidade."""
-        return self.__informacoes['visibility']
-
-    @property
-    def vento(self):
-        """Retorna a velocidade do vento."""
-        return self.__informacoes['wind']['speed']
-
-    @property
-    def direcao_vento(self):
-        """Retorna a direcao do vento."""
-        return self.__informacoes['wind']['deg']
-
-    @property
-    def condicao(self):
-        """Retorna a condicao."""
-        return self.__informacoes['weather'][0]['description']
-
-    @property
-    def data(self):
-        """Retorna a data."""
-        return datetime.fromtimestamp(int(self.__informacoes['dt']))
-
-    def __obter_informacoes(self) -> dict:
-        """Obtem as informações meteorologicas.
-
-        :return: json com as informações meteorologicas.
+        :return: informações meteorologicas.
         :rtype: dict
         """
         url = f'{URL}&q={self.cidade}'
-        response = requests.get(url)
-        return response.json()
+        resposta = requests.get(url)
+        return resposta.json()
 
-    def converter_direcao_vento_abreviatura(self) -> str:
-        """Converte a direcao do vento para abreviatura.
+    @property
+    def temperatura(self) -> float:
+        """Obtém a temperatura.
 
-        :return: abreviatura da direcao do vento.
+        :return: temperatura.
+        :rtype: float
+        """
+        return self.info['main']['temp']
+
+    @property
+    def temperatura_maxima(self) -> float:
+        """Obtém a temperatura máxima.
+
+        :return: temperatura máxima.
+        :rtype: float
+        """
+        return self.info['main']['temp_max']
+
+    @property
+    def temperatura_minima(self) -> float:
+        """Obtém a temperatura mínima.
+
+        :return: temperatura mínima.
+        :rtype: float
+        """
+        return self.info['main']['temp_min']
+
+    @property
+    def pressao(self) -> int:
+        """Obtém a pressão.
+
+        :return: pressão.
+        :rtype: int
+        """
+        return self.info['main']['pressure']
+
+    @property
+    def umidade(self) -> int:
+        """Obtém a umidade.
+
+        :return: umidade.
+        :rtype: int
+        """
+        return self.info['main']['humidity']
+
+    @property
+    def descricao(self) -> str:
+        """Obtém a descrição.
+
+        :return: descrição.
         :rtype: str
         """
-        if 348.75 <= self.direcao_vento <= 11.25:
-            return 'N'
-        if 11.25 <= self.direcao_vento <= 33.75:
-            return 'NNE'
-        if 33.75 <= self.direcao_vento <= 56.25:
-            return 'NE'
-        if 56.25 <= self.direcao_vento <= 78.75:
-            return 'ENE'
-        if 78.75 <= self.direcao_vento <= 101.25:
-            return 'E'
-        if 101.25 <= self.direcao_vento <= 123.75:
-            return 'ESE'
-        if 123.75 <= self.direcao_vento <= 146.25:
-            return 'SE'
-        if 146.25 <= self.direcao_vento <= 168.75:
-            return 'SSE'
-        if 168.75 <= self.direcao_vento <= 191.25:
-            return 'S'
-        if 191.25 <= self.direcao_vento <= 213.75:
-            return 'SSW'
-        if 213.75 <= self.direcao_vento <= 236.25:
-            return 'SW'
-        if 236.25 <= self.direcao_vento <= 258.75:
-            return 'WSW'
-        if 258.75 <= self.direcao_vento <= 281.25:
-            return 'W'
-        if 281.25 <= self.direcao_vento <= 303.75:
-            return 'WNW'
-        if 303.75 <= self.direcao_vento <= 326.25:
-            return 'NW'
-        if 326.25 <= self.direcao_vento <= 348.75:
-            return 'NNW'
+        return self.info['weather'][0]['description']
+
+    @property
+    def data_hora(self) -> datetime:
+        """Obtém a data e hora.
+
+        :return: data e hora.
+        :rtype: datetime
+        """
+        return datetime.fromtimestamp(self.info['dt'])
+
+    @property
+    def velocidade_vento(self) -> float:
+        """Obtém a velocidade do vento.
+
+        :return: velocidade do vento.
+        :rtype: float
+        """
+        return self.info['wind']['speed']
+
+    @property
+    def direcao_vento(self) -> str:
+        """Obtém a direção do vento.
+
+        :return: direção do vento.
+        :rtype: str
+        """
+        return self.direcao_vento_cardinal(self.info['wind']['deg'])
+
+    @property
+    def rajada_vento(self) -> float:
+        """Obtém a rajada do vento.
+
+        :return: rajada do vento.
+        :rtype: float
+        """
+        return self.info['wind']['gust']
+
+    @property
+    def nome(self) -> str:
+        """Obtém o nome da cidade.
+
+        :return: nome da cidade.
+        :rtype: str
+        """
+        return self.info['name']
+
+    @property
+    def pais(self) -> str:
+        """Obtém o nome do país.
+
+        :return: nome do país.
+        :rtype: str
+        """
+        return self.info['sys']['country']
+
+    @property
+    def fuso_horario(self) -> float:
+        """Obtém o fuso horário.
+
+        :return: fuso horário.
+        :rtype: float
+        """
+        return datetime.fromtimestamp(self.info['dt']).astimezone().utcoffset().total_seconds() / 3600
+
+    @property
+    def latitude(self) -> float:
+        """Obtém a latitude.
+
+        :return: latitude.
+        :rtype: float
+        """
+        return self.info['coord']['lat']
+
+    @property
+    def longitude(self) -> float:
+        """Obtém a longitude.
+
+        :return: longitude.
+        :rtype: float
+        """
+        return self.info['coord']['lon']
+
+    @property
+    def visibilidade(self) -> int:
+        """Obtém a visibilidade.
+
+        :return: visibilidade.
+        :rtype: int
+        """
+        return self.info['visibility'] // 1000
+
+    @property
+    def por_do_sol(self) -> datetime:
+        """Obtém a hora por do sol.
+
+        :return: por do sol.
+        :rtype: datetime
+        """
+        return datetime.fromtimestamp(self.info['sys']['sunset'])
+
+    @property
+    def nascer_do_sol(self) -> datetime:
+        """Obtém a hora nascer do sol.
+
+        :return: nascer do sol.
+        :rtype: datetime
+        """
+        return datetime.fromtimestamp(self.info['sys']['sunrise'])
 
     def __str__(self) -> str:
-        """Retorna a representação em ‘string’."""
+        """Retorna dados do objeto.
+
+        :return: dados do objeto.
+        :rtype: str
+        """
         return (
-                f' {self.cidade}/{self.pais} - {self.data.strftime("%d/%m/%Y")} às {self.data.strftime("%H:%M")} '.center(50, '=') + '\n'
-                f'Latitude: {locale.format_string("%.4f", self.latitude)}\n'
-                f'Longitude: {locale.format_string("%.4f", self.longitude)}\n'
-                f'Condição: {self.condicao}\n'
-                f'Temperatura: '
-                f'{locale.format_string("%.2f", self.temperatura)} °C\n'
-                f'Temperatura maxima: '
-                f'{locale.format_string("%.2f", self.temperatura_maxima)} °C\n'
-                f'Temperatura minima: '
-                f'{locale.format_string("%.2f", self.temperatura_minima)} °C\n'
-                f'Pressão: {self.pressao} hPa\n'
-                f'Umidade: {self.umidade} %\n'
-                f'Visibilidade: '
-                f'{locale.format_string("%.0f", self.visibilidade / 1000)} km\n'
-                f'Vento: {locale.format_string("%.2f", self.vento)} m/s\n'
-                f'Direção do vento: {self.direcao_vento}°'
-                f' - {self.converter_direcao_vento_abreviatura()}\n '
+            f' {self.nome}/{self.pais} - '
+            f'{self.data_hora} '.center(61, '=') + '\n'
+            f'Latitude: {self.latitude} | Longitude: {self.longitude} | Fuso Horário: {self.fuso_horario}\n'
+            f'{"-" * 61}\n'
+            f'Descrição: {self.descricao}\n'
+            f'Temperatura: {self.temperatura:.1f}ºC\n'
+            f'\t máxima: {self.temperatura_maxima:.1f}ºC\n'
+            f'\t mínima: {self.temperatura_minima:.1f}ºC\n'
+            f'Pressão: {self.pressao:} hPa\n'
+            f'Umidade: {self.umidade:} %\n'
+            f'Vento: {self.velocidade_vento:.2f} m/s - '
+            f'{self.direcao_vento}\n'
+            f'\t rajada: {self.rajada_vento:.2f} m/s\n'
+            f'Visibilidade: {self.visibilidade} km\n'
+            f'Nascer do sol: {self.nascer_do_sol.strftime("%H:%M")}\n'
+            f'Pôr do sol: {self.por_do_sol.strftime("%H:%M")}\n'
         )
 
     def __repr__(self) -> str:
         """Representação do objeto."""
         return (
-            f'{self.__class__.__name__}("{self.cidade}")\n'
+            f'{self.__class__.__name__}(cidade="{self.nome}")\n'
             f'{self.__class__.__doc__}\n'
             f'{self.__class__.__module__} {self.__dict__}\n'
         )

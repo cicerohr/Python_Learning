@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-r"""main.py in: 2022-05-16.
-
-"""
+r"""main.py in: 2022-05-16."""
 
 from InformacoesMeteorologicas import InformacoesMeteorologicas
 
