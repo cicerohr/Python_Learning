@@ -30,7 +30,7 @@ class Calculator:
         """
         self.window = tk.Tk()
         self.window.iconbitmap(
-            f'{Path(__file__).parent.parent}\\assets\\calculator.ico'
+            f'{Path(__file__).parent}\\assets\\calculator.ico'
         )
         self.window.title('Calculator')
         self.window.geometry('375x667')

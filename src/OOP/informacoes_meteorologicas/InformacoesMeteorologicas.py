@@ -9,23 +9,16 @@ https://openweathermap.org/current#name
 @author: Cícero
 @link: https://www.youtube.com/watch?v=SqvVm3QiQVk&t=1494s
 """
-import locale
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from typing import Final
 
 import requests
-from Conversores import Conversores
 from decouple import config
 
+from Conversores import Conversores
 from tests.loguru_conf import logger
 
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-
 API_KEY: Final[str] = config('SECRET_KEY')  # chave secreta no .env
-URL: Final[str] = (
-    f'http://api.openweathermap.org/data/2.5/weather?'
-    f'&appid={API_KEY}&lang=pt_br&units=metric'
-)
 
 
 class InformacoesMeteorologicas(Conversores):
@@ -42,7 +35,7 @@ class InformacoesMeteorologicas(Conversores):
         :type cidade: str
         """
         super().__init__()
-        self.cidade = self.palavra_acentuada_n_acentuada(cidade)
+        self.cidade = self.retirar_acento(cidade)
         self.info = self.obter_informacoes()
 
     def obter_informacoes(self) -> dict:
@@ -51,9 +44,19 @@ class InformacoesMeteorologicas(Conversores):
         :return: informações meteorologicas.
         :rtype: dict
         """
-        url = f'{URL}&q={self.cidade}'
-        resposta = requests.get(url)
-        return resposta.json()
+        url = 'https://api.openweathermap.org/data/2.5/weather'
+        parametros = {
+            'q': self.cidade,
+            'appid': API_KEY,
+            'lang': 'pt_br',
+            'units': 'metric',
+        }
+        try:
+            resposta = requests.get(url, params=parametros)
+            return resposta.json()
+        except Exception as e:
+            logger.error(e)
+            return {}
 
     @property
     def temperatura(self) -> float:
@@ -101,6 +104,15 @@ class InformacoesMeteorologicas(Conversores):
         return self.info['main']['humidity']
 
     @property
+    def nebulosidade(self) -> int:
+        """Obtém a nebulosidade.
+
+        :return: nebulosidade.
+        :rtype: int
+        """
+        return self.info['clouds']['all']
+
+    @property
     def descricao(self) -> str:
         """Obtém a descrição.
 
@@ -110,15 +122,35 @@ class InformacoesMeteorologicas(Conversores):
         return self.info['weather'][0]['description']
 
     @property
-    def data_hora(self) -> datetime:
+    def icone(self) -> str:
+        """Obtém o icone.
+
+        :return: icone.
+        :rtype: str
+        """
+        return self.info['weather'][0]['icon']
+
+    @property
+    def sensacao_termica(self) -> float:
+        """Obtém a sensação térmica.
+
+        :return: sensação térmica.
+        :rtype: float
+        """
+        return self.info['main']['feels_like']
+
+    @property
+    def data_hora(self) -> str:
         """Obtém a data e hora em segundos unix, UTC.
 
-        Unix é o número de segundos desde 1970-01-01 00:00:00 UTC.
+        Unix é o número de segundos a partir de: 1970-01-01 00:00:00 UTC.
 
         :return: data e hora em ano, mês, dia, hora, minuto e segundo.
-        :rtype: datetime
+        :rtype: str
         """
-        return datetime.fromtimestamp(self.info['dt'])
+        return datetime.now(
+            timezone(timedelta(hours=(self.info['timezone'] / 3600)))
+        ).strftime('%Y-%m-%d %H:%M')
 
     @property
     def velocidade_vento(self) -> float:
@@ -136,7 +168,7 @@ class InformacoesMeteorologicas(Conversores):
         :return: direção do vento em direção cardinal.
         :rtype: str
         """
-        return self.direcao_vento_cardinal(self.info['wind']['deg'])
+        return self.direcao_cardinal(self.info['wind']['deg'])
 
     @property
     def rajada_vento(self) -> float:
@@ -145,7 +177,10 @@ class InformacoesMeteorologicas(Conversores):
         :return: rajada do vento em km/h.
         :rtype: float
         """
-        return self.info['wind']['gust'] * 3.6  # m/s -> km/h
+        try:
+            return self.info['wind']['gust'] * 3.6  # m/s -> km/h
+        except KeyError:
+            return 0
 
     @property
     def nome(self) -> str:
@@ -166,22 +201,27 @@ class InformacoesMeteorologicas(Conversores):
         return self.info['sys']['country']
 
     @property
-    def fuso_horario(self) -> float:
+    def fuso_horario(self) -> str:
         """Obtém o fuso horário em segundos unix, UTC.
 
         Unix timestamp é o número de segundos desde 1 de janeiro de 1970 até a
         data e hora especificada.
 
         :return: fuso horário em horas.
-        :rtype: float
+        :rtype: str
         """
-        return (
-            datetime.fromtimestamp(self.info['dt'])
-            .astimezone()
-            .utcoffset()
-            .total_seconds()
-            / 3600  # segundos -> horas
-        )
+        return datetime.now(
+            timezone(timedelta(hours=(self.info['timezone'] / 3600)))
+        ).strftime('%z')[:-2]
+
+    @fuso_horario.setter
+    def fuso_horario(self, fuso_horario):
+        """Define o fuso horário.
+
+        :param fuso_horario: fuso horário em horas.
+        :type fuso_horario: float
+        """
+        self.fuso_horario = fuso_horario
 
     @property
     def latitude(self) -> float:
@@ -211,72 +251,113 @@ class InformacoesMeteorologicas(Conversores):
         return self.info['visibility'] // 1000  # m -> km
 
     @property
-    def por_do_sol(self) -> datetime:
-        """Obtém a hora por do sol em segundos unix, UTC.
-
-        :return: pôr do sol em ano, mês, dia, hora, minuto e segundo.
-        :rtype: datetime
-        """
-        return datetime.fromtimestamp(self.info['sys']['sunset'])
-
-    @property
     def nascer_do_sol(self) -> datetime:
         """Obtém a hora nascer do sol em segundos unix, UTC.
 
         :return: nascer do sol em ano, mês, dia, hora, minuto e segundo.
         :rtype: datetime
         """
-        return datetime.fromtimestamp(self.info['sys']['sunrise'])
+        return datetime.fromtimestamp(
+            self.info['sys']['sunrise'] + self.info['timezone'],
+            tz=timezone.utc,
+        )
 
-    def __str__(self) -> str:
+    @property
+    def por_do_sol(self) -> datetime:
+        """Obtém a hora por do sol em segundos unix, UTC.
+
+        :return: pôr do sol em ano, mês, dia, hora, minuto e segundo.
+        :rtype: datetime
+        """
+        return datetime.fromtimestamp(
+            self.info['sys']['sunset'] + self.info['timezone'], tz=timezone.utc
+        )
+
+    def __dict__(self):
+        try:
+            dict_ = {
+                'nome': self.nome,
+                'pais': self.pais,
+                'data_hora': self.data_hora,
+                'latitude': self.latitude,
+                'longitude': self.longitude,
+                'fuso_horario': self.fuso_horario,
+                'temperatura': f'{self.temperatura:.1f}',
+                'descricao': f'{self.descricao}',
+                'icone': self.icone,
+                'minima': f'{self.temperatura_minima:.1f}',
+                'maxima': f'{self.temperatura_maxima:.1f}',
+                'sensacao_termica': self.sensacao_termica,
+                'pressao': self.pressao,
+                'umidade': self.umidade,
+                'nebulosidade': self.nebulosidade,
+                'vento': f'{self.velocidade_vento:.2f}',
+                'direcao_vento': self.direcao_vento,
+                'rajada_vento': f'{self.rajada_vento:.2f}',
+                'visibilidade': self.visibilidade,
+                'nascer_do_sol': self.nascer_do_sol.strftime('%H:%M'),
+                'por_do_sol': self.por_do_sol.strftime('%H:%M'),
+            }
+            return dict_
+        except Exception as e:
+            logger.error(f'Erro ao converter o objeto para dicionário: {e}')
+            return -1
+
+    def __str__(self) -> str | dict:
         """Retorna dados do objeto.
 
         :return: dados do objeto.
-        :rtype: str
+        :rtype: str | dict
         """
-        return (
-            f' {self.nome}/{self.pais} - '
-            f'{self.data_hora} '.center(61, '=') + '\n'
-            f'Latitude: {self.latitude} | Longitude: {self.longitude} | '
-            f'Fuso Horário: {self.fuso_horario}\n'
-            f'{"-" * 61}\n'
-            f'Descrição: {self.descricao}\n'
-            f'Temperatura: {self.temperatura:.1f}ºC\n'
-            f'\t máxima: {self.temperatura_maxima:.1f}ºC\n'
-            f'\t mínima: {self.temperatura_minima:.1f}ºC\n'
-            f'Pressão: {self.pressao:} hPa\n'
-            f'Umidade: {self.umidade:} %\n'
-            f'Vento: {self.velocidade_vento:.2f} km/h - '
-            f'{self.direcao_vento}\n'
-            f'\t rajada: {self.rajada_vento:.2f} km/h\n'
-            f'Visibilidade: {self.visibilidade} km\n'
-            f'Nascer do sol: {self.nascer_do_sol.strftime("%H:%M")}\n'
-            f'Pôr do sol: {self.por_do_sol.strftime("%H:%M")}\n'
-        )
+        try:
+            string_retorno = f"""
+            \t\t{self.nome}/{self.pais} | {self.data_hora}
+            Lat.: {self.latitude} | Long.: {self.longitude} | Fuso Horário: {self.fuso_horario}\n
+            Descrição: {self.descricao}
+            Temperatura: {self.temperatura:.2f}ºC
+            \t máxima: {self.temperatura_maxima:.2f}ºC
+            \t mínima: {self.temperatura_minima:.2f}ºC
+            Pressão: {self.pressao:} hPa
+            Umidade: {self.umidade:} %
+            Vento: {self.velocidade_vento:.2f} km/h - {self.direcao_vento}
+            \trajada: {self.rajada_vento:.2f} km/h
+            Visibilidade: {self.visibilidade} km
+            Nascer do sol: {self.nascer_do_sol.strftime("%H:%M")}
+            Pôr do sol: {self.por_do_sol.strftime("%H:%M")}"""
+            return string_retorno
+        except KeyError as e:
+            logger.error(f'Erro ao obter dados do objeto: {e}')
+            return (
+                f'Erro ao obter dados.\n\n'
+                f'A cidade "{self.cidade}" está correta?'
+            )
 
-    def __repr__(self) -> str:
-        """Representação do objeto."""
-        return (
-            f'{self.__class__.__name__}(cidade="{self.nome}")\n'
-            f'{self.__class__.__doc__}\n'
-            f'{self.__class__.__module__} {self.__dict__}\n'
-        )
+
+def __repr__(self) -> str:
+    """Representação do objeto."""
+    return (
+        f'{self.__class__.__name__}(cidade="{self.nome}")\n'
+        f'{self.__class__.__doc__}\n'
+        f'{self.__class__.__module__} {self.__dict__}\n'
+    )
 
 
 def main() -> None:
     """Função principal."""
-    sunrise = InformacoesMeteorologicas('Montevideo')
-    sunrise.obter_informacoes()
-    print(sunrise.nascer_do_sol)
-    print(sunrise.fuso_horario)
-    data_london = InformacoesMeteorologicas('Londres')
-    print(data_london.obter_informacoes())
-    data_montevideo = InformacoesMeteorologicas('Montevideo')
-    print(data_montevideo.obter_informacoes())
-    data_sao_paulo = InformacoesMeteorologicas('São Paulo')
-    print(data_sao_paulo.obter_informacoes())
-    data_sao_jose_dos_campos = InformacoesMeteorologicas('São José dos Campos')
-    print(data_sao_jose_dos_campos.obter_informacoes())
+    montevideo = InformacoesMeteorologicas('Montevideo')
+    print(
+        datetime.now(
+            timezone(timedelta(hours=(montevideo.info['timezone'] / 3600)))
+        ).strftime('%z')[:-2]
+    )
+    print(
+        datetime.now(
+            timezone(timedelta(hours=(montevideo.info['timezone'] / 3600)))
+        )
+    )
+    # print(montevideo.obter_informacoes())
+    # print(montevideo)
+    print(montevideo.__dict__())
 
 
 if __name__ == '__main__':

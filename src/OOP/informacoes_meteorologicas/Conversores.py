@@ -16,50 +16,48 @@ class Conversores:
     Conversor de palavras acentuadas para palavras sem acentos.
     """
 
-    @staticmethod
-    def direcao_vento_cardinal(direcao_vento_graus: int) -> str:
-        r"""Converte a direção do vento de graus para direção cardinal.
+    def __init__(self) -> None:
+        r"""Construtor da classe.
 
-        :param direcao_vento_graus: direção do vento em graus.
-        :type direcao_vento_graus: int.
-        :return: direção do vento em direção cardinal.
+        Inicialização das direções do vento.
+
+        :return: None.
+        """
+        self.direcoes = {
+            'N (norte)': (348.75, 11.25),
+            'NNE (nor-nordeste)': (11.26, 33.75),
+            'NE (nordeste)': (33.76, 56.25),
+            'ENE (leste–nordeste)': (56.26, 78.75),
+            'E (leste)': (78.76, 101.25),
+            'ESE (leste–sudeste)': (101.26, 123.75),
+            'SE (sudeste)': (123.76, 146.25),
+            'SSE (sul-sudeste)': (146.26, 168.75),
+            'S (sul)': (168.76, 191.25),
+            'SSO (sul-sudoeste)': (191.26, 213.75),
+            'SO (sudoeste)': (213.76, 236.25),
+            'OSO (oeste–sudoeste)': (236.26, 258.75),
+            'O (oeste)': (258.76, 281.25),
+            'ONO (oeste–noroeste)': (281.26, 303.75),
+            'NO (noroeste)': (303.76, 326.25),
+            'NNO (nor-noroeste)': (326.26, 348.74),
+        }
+
+    def direcao_cardinal(self, graus) -> str:
+        """Converte graus para direção cardinal.
+
+        :param graus: direção do vento em graus.
+        :type graus: float.
+        :return: direção do vento de forma cardinal.
         :rtype: str.
         """
-        if 348.75 <= direcao_vento_graus <= 11.25:
-            return 'Norte'
-        if 11.25 <= direcao_vento_graus <= 33.75:
-            return 'Nordeste'
-        if 33.75 <= direcao_vento_graus <= 56.25:
-            return 'Leste'
-        if 56.25 <= direcao_vento_graus <= 78.75:
-            return 'Sudeste'
-        if 78.75 <= direcao_vento_graus <= 101.25:
-            return 'Sul'
-        if 101.25 <= direcao_vento_graus <= 123.75:
-            return 'Sudoeste'
-        if 123.75 <= direcao_vento_graus <= 146.25:
-            return 'Oeste'
-        if 146.25 <= direcao_vento_graus <= 168.75:
-            return 'Noroeste'
-        if 168.75 <= direcao_vento_graus <= 191.25:
-            return 'Norte'
-        if 191.25 <= direcao_vento_graus <= 213.75:
-            return 'Nordeste'
-        if 213.75 <= direcao_vento_graus <= 236.25:
-            return 'Leste'
-        if 236.25 <= direcao_vento_graus <= 258.75:
-            return 'Sudeste'
-        if 258.75 <= direcao_vento_graus <= 281.25:
-            return 'Sul'
-        if 281.25 <= direcao_vento_graus <= 303.75:
-            return 'Sudoeste'
-        if 303.75 <= direcao_vento_graus <= 326.25:
-            return 'Oeste'
-        if 326.25 <= direcao_vento_graus <= 348.75:
-            return 'Noroeste'
+        for chave, (inferior, superior) in self.direcoes.items():
+            if 0 <= graus <= 11.25 or 348.75 <= graus < 360:
+                return 'N (norte)'
+            if inferior <= graus <= superior:
+                return chave
 
     @staticmethod
-    def palavra_acentuada_n_acentuada(palavra_acentuada: str) -> str:
+    def retirar_acento(palavra_acentuada: str) -> str:
         r"""Converte palavras acentuadas para palavras sem acentos.
 
         :param palavra_acentuada: palavra com acento.
@@ -73,15 +71,23 @@ class Conversores:
             .decode('ASCII')
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        r"""Representação do objeto.
+
+        :return: representação do objeto.
+        :rtype: str.
+        """
         return f'{self.__class__.__name__}()'
 
 
 def main():
     """Função principal."""
-    print(Conversores)
-    print(Conversores.direcao_vento_cardinal(12))
-    print(Conversores.palavra_acentuada_n_acentuada('Água'))
+    conversores = Conversores()
+    graus = 0.0
+    while 0 <= graus < 360:
+        print(f'{graus:.2f}°: {conversores.direcao_cardinal(graus)}')
+        graus += 11.25
+    print(conversores.retirar_acento('Água'))
 
 
 if __name__ == '__main__':
