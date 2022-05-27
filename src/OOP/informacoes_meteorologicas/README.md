@@ -6,7 +6,7 @@
 <a href="#objetivo">Objetivo</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#como-funciona">Como funciona</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#resultados">Resultados</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#referências">Referências</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#referencias">Referências</a>&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 
 ---
@@ -15,7 +15,9 @@
 
 O projeto consiste em um estudo de OOP, com a finalidade de aprender a utilizar a linguagem Python.
 
-## Como funciona [🔝](#índice)
+[🔝](#índice)
+
+## Como funciona
 
 A ideia surgiu a partir do tutorial [Getting Weather Information](https://www.youtube.com/watch?v=SqvVm3QiQVk&t=1494s) do youtuber Code With Tomi.
 
@@ -40,13 +42,17 @@ Resumo:
 
 Ao digitar um nome de uma cidade no campo de texto, a APP busca os dados meteorologicos da cidade e mostra na "interface" gráfica.
 
-## Resultados [🔝](#índice)
+[🔝](#índice)
+
+## Resultados
 
 A captura da tela do aplicativo abaixo mostra a interface gráfica, com os dados meteorologicos.
 
 ![Captura da tela do aplicativo](./assets/captura_tela_app.png "Captura do aplicativo")
 
-## Referências [🔝](#índice)
+[🔝](#índice)
+
+## Referências
 
 * [Getting Weather Information](https://www.youtube.com/watch?v=SqvVm3QiQVk&t=1494s)
 * [OpenWeatherMap API](https://openweathermap.org/current#name)
