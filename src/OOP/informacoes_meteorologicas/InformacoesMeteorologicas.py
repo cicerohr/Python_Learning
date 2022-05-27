@@ -332,14 +332,13 @@ class InformacoesMeteorologicas(Conversores):
                 f'A cidade "{self.cidade}" está correta?'
             )
 
-
-def __repr__(self) -> str:
-    """Representação do objeto."""
-    return (
-        f'{self.__class__.__name__}(cidade="{self.nome}")\n'
-        f'{self.__class__.__doc__}\n'
-        f'{self.__class__.__module__} {self.__dict__}\n'
-    )
+    def __repr__(self) -> str:
+        """Representação do objeto."""
+        return (
+            f'{self.__class__.__name__}(cidade="{self.nome}")\n'
+            f'{self.__class__.__doc__}\n'
+            f'{self.__class__.__module__} {self.__dict__}\n'
+        )
 
 
 def main() -> None:
