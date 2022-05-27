@@ -16,13 +16,14 @@
 O projeto consiste em um estudo de OOP, com a finalidade de aprender a utilizar
 a linguagem Python.
 
+A ideia surgiu a partir do
+tutorial [Getting Weather Information](https://www.youtube.com/watch?v=SqvVm3QiQVk&t=1494s)
+do youtuber Code With Tomi.
+
 [🔝](#índice)
 
 ## Como funciona
 
-A ideia surgiu a partir do
-tutorial [Getting Weather Information](https://www.youtube.com/watch?v=SqvVm3QiQVk&t=1494s)
-do youtuber Code With Tomi.
 
 A API do OpenWeatherMap é utilizada para obter os dados meteorologicos.
 
