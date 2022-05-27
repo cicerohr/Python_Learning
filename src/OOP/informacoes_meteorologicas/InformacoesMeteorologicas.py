@@ -312,7 +312,8 @@ class InformacoesMeteorologicas(Conversores):
         try:
             string_retorno = f"""
             \t\t{self.nome}/{self.pais} | {self.data_hora}
-            Lat.: {self.latitude} | Long.: {self.longitude} | Fuso Horário: {self.fuso_horario}\n
+            Lat.: {self.latitude} | Long.: {self.longitude} | 
+            Fuso Horário: {self.fuso_horario}\n
             Descrição: {self.descricao}
             Temperatura: {self.temperatura:.2f}ºC
             \t máxima: {self.temperatura_maxima:.2f}ºC
