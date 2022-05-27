@@ -13,42 +13,57 @@
 
 ## Objetivo
 
-O projeto consiste em um estudo de OOP, com a finalidade de aprender a utilizar a linguagem Python.
+O projeto consiste em um estudo de OOP, com a finalidade de aprender a utilizar
+a linguagem Python.
 
 [🔝](#índice)
 
 ## Como funciona
 
-A ideia surgiu a partir do tutorial [Getting Weather Information](https://www.youtube.com/watch?v=SqvVm3QiQVk&t=1494s) do youtuber Code With Tomi.
+A ideia surgiu a partir do
+tutorial [Getting Weather Information](https://www.youtube.com/watch?v=SqvVm3QiQVk&t=1494s)
+do youtuber Code With Tomi.
 
 A API do OpenWeatherMap é utilizada para obter os dados meteorologicos.
 
-A APP tem uma classe chamada "InformacoesMeteorologicas", que possui um método chamado "obter_informacoes()", que retorna um dicionário com os dados meteorologicos formatados.
+A APP tem uma classe chamada "InformacoesMeteorologicas", que possui um método
+chamado "obter_informacoes()", que retorna um dicionário com os dados
+meteorologicos formatados.
 
-A classe "Conversores" é utilizada para converter graus em direção cardinal, bem como para retirar acentos e caracteres especiais com seus respectivos métodos: "direcao_cardinal()" e "retirar_acentos()".
+A classe "Conversores" é utilizada para converter graus em direção cardinal,
+bem como para retirar acentos e caracteres especiais com seus respectivos
+métodos: "direcao_cardinal()" e "retirar_acentos()".
 
-Uma “interface” gráfica (Tkinter) é utilizada para mostrar os dados meteorologicos.
+Uma “interface” gráfica (Tkinter) é utilizada para mostrar os dados
+meteorologicos.
 
 Resumo:
-- Classe Conversores:
-  - direcao_cardinal()
-  - retirar_acentos()
-- Classe InformacoesMeteorologicas:
-  - obter_informacoes()
-- gui (interface gráfica):
-  - Função show_info_meteorologicas()
-- API:
-  - OpenWeatherMap
 
-Ao digitar um nome de uma cidade no campo de texto, a APP busca os dados meteorologicos da cidade e mostra na "interface" gráfica.
+- Classe Conversores:
+    - direcao_cardinal()
+    - retirar_acentos()
+- Classe InformacoesMeteorologicas:
+    - obter_informacoes()
+- gui (interface gráfica):
+    - Função show_info_meteorologicas()
+- API:
+    - OpenWeatherMap
+
+Ao digitar um nome de uma cidade no campo de texto, a APP busca os dados
+meteorologicos da cidade e mostra na "interface" gráfica.
 
 [🔝](#índice)
 
 ## Resultados
 
-A captura da tela do aplicativo abaixo mostra a interface gráfica, com os dados meteorologicos.
+* Teste de contraste da paleta de cores:
 
-![Captura da tela do aplicativo](./assets/captura_tela_app.png "Captura do aplicativo")
+  * ![Teste de contraste](./assets/teste_contraste.png "Captura do teste de contraste")
+
+* A captura da tela do aplicativo abaixo mostra a interface gráfica, com os dados
+meteorológicos.
+
+  * ![Captura da tela do aplicativo](./assets/captura_tela_app.png "Captura da tela do aplicativo")
 
 [🔝](#índice)
 

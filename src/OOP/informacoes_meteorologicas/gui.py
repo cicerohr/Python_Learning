@@ -16,6 +16,16 @@ from loguru_conf import logger
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path('assets')
+color_bg = '#4C4C4C'
+color_text = '#E8E8E8'
+color_accent = '#FFFFFF'
+font_h1 = ('RobotoRoman Bold', 40 * -1)
+font_h2 = ('RobotoRoman Bold', 25 * -1)
+font_h3 = ('RobotoRoman Bold', 20 * -1)
+font_text = ('RobotoRoman Regular', 20 * -1)
+font_accent = ('RobotoRoman Bold', 80 * -1)
+font_accent_small = ('RobotoRoman Bold', 40 * -1)
+font_entry = ('Roboto', 20)
 
 
 def relative_to_assets(path: str) -> Path:
@@ -65,7 +75,7 @@ def create_images_canvas() -> None:
         var_name = var_name.replace('.png', '')
         globals()[var_name] = PhotoImage(file=relative_to_assets(image[0]))
         canvas.create_image(
-            image[1], image[2], image=globals()[var_name], tag='info'
+            image[1], image[2], image=globals()[var_name], tags='info'
         )
 
 
@@ -88,13 +98,13 @@ window.geometry(
     f'{window_width}x{window_height}+{left_position}+{top_position}'
 )
 
-window.configure(bg='#69696A')
+window.configure(bg=color_bg)
 window.title('Informações Meteorológicas')
 window.iconbitmap(relative_to_assets('icon.ico'))
 
 canvas = Canvas(
     window,
-    bg='#69696A',
+    bg=color_bg,
     width=window_width,
     height=window_height,
     bd=0,
@@ -109,8 +119,8 @@ canvas.create_text(
     27.0,
     anchor='nw',
     text='Clima Atual',
-    fill='#E3E3E3',
-    font=('RobotoRoman Bold', 40 * -1),
+    fill=color_text,
+    font=font_h1,
 )
 
 entry_image_1 = PhotoImage(file=relative_to_assets('entry_1.png'))
@@ -119,7 +129,7 @@ entry_city = Entry(
     bd=0,
     bg='#D1D1D1',
     highlightthickness=0,
-    font=('Roboto', 20),
+    font=font_entry,
     justify='center',
 )
 entry_city.place(x=63.0, y=88.0, width=405.0, height=44.0)
@@ -174,8 +184,8 @@ def show_info_meteorologicas(nome_cidade: str) -> None:
         228.0,
         anchor='center',
         text=f'{info["nome"]}/{info["pais"]} | {info["data_hora"]}',
-        fill='#E3E3E3',
-        font=('RobotoRoman Bold', 25 * -1),
+        fill=color_text,
+        font=font_h2,
         tags=('info', 'h2'),
     )
 
@@ -188,8 +198,8 @@ def show_info_meteorologicas(nome_cidade: str) -> None:
             f'Longitude: {info["longitude"]} | '
             f'Fuso: {info["fuso_horario"]}'
         ),
-        fill='#E3E3E3',
-        font=('RobotoRoman Bold', 20 * -1),
+        fill=color_text,
+        font=font_h3,
         tags=('info', 'h3'),
     )
 
@@ -198,8 +208,8 @@ def show_info_meteorologicas(nome_cidade: str) -> None:
         405.0,
         anchor='center',
         text=f'{info["descricao"]}',
-        fill='#E3E3E3',
-        font=('RobotoRoman Regular', 20 * -1),
+        fill=color_text,
+        font=font_text,
         tags=('info', 'normal'),
     )
 
@@ -208,8 +218,8 @@ def show_info_meteorologicas(nome_cidade: str) -> None:
         436.0,
         anchor='nw',
         text=info['temperatura'],
-        fill='#FFFFFF',
-        font=('RobotoRoman Bold', 80 * -1),
+        fill=color_accent,
+        font=font_accent,
         tags=('info', 'large'),
     )
 
@@ -218,8 +228,8 @@ def show_info_meteorologicas(nome_cidade: str) -> None:
         473.0,
         anchor='nw',
         text='°C',
-        fill='#FFFFFF',
-        font=('RobotoRoman Bold', 40 * -1),
+        fill=color_accent,
+        font=font_accent_small,
         tags=('info',),
     )
 
@@ -228,8 +238,8 @@ def show_info_meteorologicas(nome_cidade: str) -> None:
         357.0,
         anchor='nw',
         text=f'{info["minima"]} °C',
-        fill='#E3E3E3',
-        font=('RobotoRoman Bold', 20 * -1),
+        fill=color_text,
+        font=font_text,
         tags=('info', 'normal'),
     )
 
@@ -238,8 +248,8 @@ def show_info_meteorologicas(nome_cidade: str) -> None:
         357.0,
         anchor='nw',
         text=f'{info["maxima"]} °C',
-        fill='#E3E3E3',
-        font=('RobotoRoman Bold', 20 * -1),
+        fill=color_text,
+        font=font_text,
         tags=('info', 'normal'),
     )
 
@@ -248,8 +258,8 @@ def show_info_meteorologicas(nome_cidade: str) -> None:
         585.0,
         anchor='nw',
         text=info['nascer_do_sol'],
-        fill='#E3E3E3',
-        font=('RobotoRoman Bold', 20 * -1),
+        fill=color_text,
+        font=font_text,
         tags=('info', 'normal'),
     )
 
@@ -258,8 +268,8 @@ def show_info_meteorologicas(nome_cidade: str) -> None:
         585.0,
         anchor='nw',
         text=info['por_do_sol'],
-        fill='#E3E3E3',
-        font=('RobotoRoman Bold', 20 * -1),
+        fill=color_text,
+        font=font_text,
         tags=('info', 'normal'),
     )
 
@@ -268,8 +278,8 @@ def show_info_meteorologicas(nome_cidade: str) -> None:
         675.0,
         anchor='center',
         text=f'Vento: {info["vento"]} km/h - {info["direcao_vento"]}',
-        fill='#E3E3E3',
-        font=('RobotoRoman Bold', 20 * -1),
+        fill=color_text,
+        font=font_text,
         tags=('info', 'normal'),
     )
 
