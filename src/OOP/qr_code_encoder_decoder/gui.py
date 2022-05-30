@@ -199,7 +199,7 @@ canvas.create_text(
     235.0,
     255.0,
     anchor='nw',
-    text='Selecione a pasta onde esta o Qr Code para descodificar.',
+    text='Selecione a imagem do Qr Code para descodificar.',
     fill=color_accent,
     font=font_accent_small,
     tags=('accent', 'texto'),
