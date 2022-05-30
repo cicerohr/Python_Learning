@@ -1,12 +1,11 @@
 # Estudo de programação orientada a objetos
 
----
+## Índice
 
 <p align="center">
 <a href="#conteúdo">Conteúdo</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#Códigos de exemplo">Códigos de exemplo</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#códigos-de-exemplo">Códigos de exemplo</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#referências">Referências</a>&nbsp;&nbsp;&nbsp;&nbsp;
-
 </p>
 
 ---
@@ -28,7 +27,7 @@
   O objetivo de uma classe é chamá-la mais tarde, permitindo a você
   acessar/utilizar os métodos (ou funções) quantas vezes forem necessárias.
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é um objeto?
 
@@ -39,13 +38,13 @@
   de
   uma classe em nosso programa.
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é um método?
 
   Um método é uma função que está dentro de uma classe.
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é método de classe?
 
@@ -63,7 +62,7 @@
 
       Foo.hello() # Hello from Foo.
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é método de instância?
 
@@ -78,7 +77,7 @@
 
       Foo.hello() # TypeError: Foo.hello() missing 1 required positional argument: 'self'
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é método estático?
 
@@ -100,7 +99,7 @@
       foo = Foo()
       foo.hello() # Hello from Foo.
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que são os métodos Getter e Setter?
 
@@ -150,7 +149,7 @@
 
   São variáveis que armazenam valores para serem usadas em outras funções.
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é Encapsulamento?
 
@@ -193,7 +192,7 @@
       pedro = Funcionario('Pedro', 'Gerente de Vendas', 50)
       pedro.salario = 100000 # ValueError: Impossivel alterar salario diretamente. Use a funcao calcula_salario()
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
   
 * O que é relação entre classes?
   
@@ -205,7 +204,7 @@
     - Composição (Objeto **É DONO** do outro(s) objeto). Símbolo: '-<*>'.
     - Herança (O objeto **É** o outro objeto). Símbolo: '-*>'.
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é Associação? (Um objeto **USA** outro objeto) Símbolo: '->'.
 
@@ -255,7 +254,7 @@
         escritor.ferramenta = maquina
         escritor.ferramenta.escrever() # Estou escrevendo com a máquina de escrever
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é Agregação? (Objeto **TEM** o outro(s) objeto) Símbolo: '-<>'.
   
@@ -300,7 +299,7 @@
         carrinho.listar_produtos()
         print(carrinho.soma_total())
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é Composição? (Objeto **É DONO** do outro(s) objeto) Símbolo: '-<*>'.
 
@@ -354,7 +353,7 @@
    
        print(' Fim do programa. '.center(50, '='))
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é Polimorfismo?
 
@@ -471,7 +470,7 @@
           print(joao, maria, pedro, sep='\n', end='\n\n')
           print(f'Total de custo: R$ {joao.pagamento_do_mes() + maria.pagamento_do_mes() + pedro.pagamento_do_mes():.2f}')  # polimorfismo
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 * O que é herança? (O objeto **É** o outro objeto) Símbolo: '-*>'.
 
@@ -517,14 +516,16 @@
 
         print(' Fim do programa. '.center(50, '='))
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 ## Códigos de exemplo
 
 * [Herança](heranca.py)
 * [Pong Game](pong.py)
+* [QR Code](qr_code_encoder_decoder)
+* [Informações Meteorológicas](informacoes_meteorologicas)
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
 
 ## Referências
 
@@ -535,4 +536,4 @@
 * [Python Orientado a Objetos - Python POO](https://www.youtube.com/playlist?list=PLbIBj8vQhvm34qAAEEH_PdL2tMG9rz-P7)
 * [Introdução à Ciência da Computação com Java e Orientação a Objetos](https://ccsl.ime.usp.br/files/publications/files/2008/intro-java-cc.pdf)
 
-[🔝](#estudo-de-programao-orientada-a-objetos)
+[🔝](#índice)
