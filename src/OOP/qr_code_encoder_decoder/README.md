@@ -36,7 +36,7 @@ retornado no campo que fica no rodapé do aplicativo.
 O ícone ‘clipboard’ ![img.png](assets/button_3.png), que esta no rodapé à direita, permite copiar o texto para a área de transferência do
 sistema.
 
-Caso o usuário clicar no botão 'Iniciar' sem preencher um dos campos, uma
+Caso o usuário clicar no botão 'Iniciar' sem preencher nenhum dos campos, uma
 mensagem de erro será exibida.
 
 O mesmo acontece quando o usuário tentar preencher os dois campos.
