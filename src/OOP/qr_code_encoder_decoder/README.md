@@ -5,7 +5,7 @@
 <p align="center">
 <a href="#objetivo">Objetivo</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#como-funciona">Como funciona</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#resultados">Resultados</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#resultado">Resultado</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#referências">Referências</a>&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 
