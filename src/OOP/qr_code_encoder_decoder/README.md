@@ -27,11 +27,11 @@ do youtuber Code With Tomi.
 A aplicação permite a criação de códigos QR e também a decodificação deles.
 
 O usuário pode digitar/colar o texto no campo 'Gerar QR Code' e clicar no
-botão 'Iniciar'. O arquivo será gerado e a imagem será arquivado no diretório 'src/OOP/qr_code_encoder_decoder/assets'.
+botão 'Iniciar'. O arquivo será gerado e a imagem será arquivada no diretório 'src/OOP/qr_code_encoder_decoder/assets'.
 
 Para descodificar um qr code basta clicar no ícone ![img.png](assets/button_1.png);
-selecionar o arquivo desejado e após isso, clicar no botão 'Iniciar'. O texto será
-retornado no campo que fica no rodapé do aplicativo.
+selecionar o arquivo desejado e, após isso, clicar no botão 'Iniciar'. O texto será
+mostrado no campo que fica no rodapé do aplicativo.
 
 O ícone ‘clipboard’ ![img.png](assets/button_3.png), que esta no rodapé à direita, permite copiar o texto para a área de transferência do
 sistema.
@@ -51,7 +51,7 @@ A aplicação é composta por três classes:
 * Classe QRCodeDecoder;
     * Método descodificar_qr_code();
 
-A disposição da ‘interface’ foi desenvolvida no Figma sendo gerada, para o
+A disposição da ‘interface’ foi desenvolvida no [Figma](https://www.figma.com/) sendo gerada, para o
 projeto,
 com o
 aplicativo [Tkinter Designer](https://github.com/ParthJadhav/Tkinter-Designer) (tanks to [Parth Jadhav](https://github.com/ParthJadhav)), o arquivo
