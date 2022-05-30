@@ -142,7 +142,7 @@ canvas.place(x=0, y=0)
 
 # Imagem de vários QR Codes à esquerda
 image_image_1 = PhotoImage(file=relative_to_assets('image_1.png'))
-image_1 = canvas.create_image(82.0, 200.0, image=image_image_1)
+image_1 = canvas.create_image(85.0, 200.0, image=image_image_1)
 
 # Título da interface
 canvas.create_text(
@@ -236,7 +236,7 @@ btn_iniciar = Button(
     relief='flat',
     cursor='hand2',
 )
-btn_iniciar.place(x=368.0, y=335.0, width=130.0, height=35.0)
+btn_iniciar.place(x=371.0, y=335.0, width=127.0, height=35.0)
 
 # Campo de texto para exibir o resultado da descodificação
 entry_image_3 = PhotoImage(file=relative_to_assets('entry_3.png'))
