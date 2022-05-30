@@ -67,7 +67,7 @@ class QRCodeEncoderDecoder:
         )
 
     def decodificar_qr(self):
-        r"""Método decodificar_qr.
+        r"""Método descodificar_qr.
 
         Método para decodificar um código QR e exibir o texto.
 
